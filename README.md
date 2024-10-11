@@ -1,23 +1,12 @@
 # Mockbuster
 
-Si vuole realizzare un sito di videonoleggio online che permette agli utenti di
-accedere ad un catalogo di film disponibili sia per il noleggio che per l'acquisto.
-Gli utenti possono registrarsi creando un account e fornendo informazioni
-personali quali nome, cognome, e-mail e indirizzo di fatturazione. Dopo la
-registrazione, essi possono navigare nel catalogo, che o?re una gamma di film
-completi di descrizioni dettagliate.
-Ogni film include informazioni quali trama, durata, anno di uscita, prezzo di
-noleggio giornaliero e prezzo di acquisto.
-La piattaforma supporta due tipologie di ordine: il noleggio e l’acquisto.
-Gli utenti possono scegliere di noleggiare un film per un determinato numero di
-giorni, pagando un costo giornaliero che varia in base al titolo scelto. In
-alternativa, possono decidere di acquistare un film, ottenendo così l'accesso
-permanente alla visione del contenuto senza limitazioni di tempo. Entrambe le
-tipologie di ordine vengono registrate nel sistema, permettendo agli utenti di
-tenere traccia delle proprie operazioni attraverso uno storico accessibile in
-qualsiasi momento.
-Dal punto di vista gestionale, la piattaforma o?re una serie di strumenti per
-l’amministrazione del servizio. Gli amministratori hanno la possibilità di gestire il
-catalogo dei film aggiungendo nuovi titoli, aggiornando le informazioni sui film
-esistenti o rimuovendoli dal catalogo quando necessario. Inoltre, gli
-amministratori possono monitorare gli ordini degli utenti.
+Si vuole rappresentare una piattaforma di videonoleggio digitale di film, che permette agli utenti di noleggiare o acquistare film online.
+
+Gli utenti della piattaforma possono registrarsi creando un account, che richiede l'inserimento di informazioni personali come nome, cognome, e-mail e indirizzo di fatturazione. Una volta registrati, gli utenti possono navigare nel catalogo dei film disponibili, che comprende vari titoli con informazioni dettagliate come titolo, trama, durata, anno di uscita, prezzo di noleggio giornaliero e prezzo di acquisto.
+
+La piattaforma supporta due tipi principali di transazioni: il noleggio e l'acquisto di film. Gli utenti possono scegliere di noleggiare un film per un certo numero di giorni, pagando un costo giornaliero, oppure possono acquistare il film, ottenendo così un accesso permanente. Ogni transazione, sia essa un noleggio e/o un acquisto, viene registrata nel sistema, permettendo di tracciare l'attività dell'utente e di gestire la disponibilità di licenze per i film.
+
+Inoltre, il sistema supporta diverse funzionalità per la gestione amministrativa, come la gestione degli ordini e del catalogo di film. I gestori possono aggiungere nuovi film al catalogo, aggiornare le informazioni sui film esistenti e monitorare le transazioni effettuate dagli utenti. 
+
+Nel complesso, la piattaforma è progettata per supportare tutte le operazioni necessarie a gestire efficacemente un servizio di noleggio e acquisto di film online, garantendo un'esperienza fluida per gli utenti e un robusto controllo delle operazioni per i gestori.
+
