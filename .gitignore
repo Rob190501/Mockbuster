@@ -279,7 +279,7 @@ Backup of *.doc*
 
 
 .vpprefdata/
-*.vpp~*
+*.vpp*
 *.vpp.working
 *.vpp.working-journal
 *.lock
