@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+
+
+form {
+	box-sizing: border-box;
+	
+	background-color: #FBA92C;
+	padding: 15px;
+	border-radius: 15px;
+	text-align: left;
+	width: 40%;
+	margin: 0 auto;
+}
+
+.page div {
+	margin: 25px auto;
+}
+
+form label, form span {
+	display: block;
+	max-width: 95%;
+}
+
+input, textarea {
+	font-size: inherit;
+	border: 3px solid #363636;
+	border-radius: 7px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 95%;
+}
+
+form input[type="submit"] {
+	border: 3px solid #363636;
+}
+
+.checkboxspan {
+	display: inline;
+	max-width: content-fit; 
+}
+
+input[type="checkbox"] {
+	display: inline;
+	width: 20px;
+	height: 20px;
+}
+
+textarea {
+	resize: none;
+}
+
+input.error, textarea.error {
+	border-color: red;
+}
+
+.valid {
+	color: green;
+}
+
+input.valid, textarea.valid {
+	border-color: green;
+}
+
+@media screen and (max-width: 750px){
+	form {
+		width: 60%;
+		padding: 2%;
+	}
+}
+
+@media screen and (max-width: 450px){
+	form {
+		
+		width: 100%;
+		padding: 2%;
+		
+		border-radius: 0px;
+	}
+
+}

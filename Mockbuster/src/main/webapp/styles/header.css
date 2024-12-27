@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+header {
+	box-sizing: border-box;
+	
+	width: 95%;
+	height: 70px;
+	
+	margin: 20px 2.5%;
+	padding: 10px 20px;
+	
+	position: fixed;
+	
+	background-color: #FBA92C;
+	border-radius: 50px;
+	line-height: 50px;
+	box-shadow: 0 0 20px #363636;
+}
+
+header a, header a:visited {
+	padding: 0px 10px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+header a:hover {
+	color: #363636;
+	text-decoration: underline;
+}
+
+.logo {
+	font-size: 2em;
+	font-family: Impact, Charcoal, sans-serif;
+	float: left;
+}
+
+.logo:hover {
+	text-decoration: none;
+}
+
+.nav {
+	float: right;
+	margin-right: 10px;
+}
+
+.nav > * {
+	float: right;
+}
+
+.nav img {
+	width: 50px;
+    height: auto;
+    margin-left: 10px;
+}
+
+.greetings {
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+.greetings span {
+	display: block;
+	margin-top: -15px;
+}
+
+.hamburger, .lens {
+    cursor: pointer;
+}
+
+.menu {
+	background-color: #FBA92C;
+	
+	margin-top: 85px;
+	
+	
+	margin-left: 170px;
+	
+	position: fixed;
+	
+	border-radius: 15px;
+	
+	visibility: hidden;
+	
+	box-shadow: 0 0 20px #363636;
+}
+
+.menu a {
+	display: block;
+	text-align: center;
+}
+
+@media screen and (max-width: 750px){
+	.logo {
+		font-size: 1.7em;
+	}
+	
+	.greetings {
+		display: none;
+	}
+	
+	.nav img {
+		width: 45px;
+	}
+	
+	.menu {
+		line-height: 35px;
+		margin-left: 50px;
+	}
+	
+	.menu a:not(:last-child) {
+		border-bottom: 3px solid #FFFFFF;
+	}
+}
+
+@media screen and (max-width: 470px){
+	header {
+		width: 100%;
+		border-radius: 0;
+		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 1px;
+		padding-right: 1px;
+	}
+	
+	.menu {
+		margin-left: 0px;
+	}
+	
+	.nav img {
+		width: 40px;
+   		margin-left: 2px;
+	}
+}

@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+body {
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+    background-attachment: fixed;
+}
+
+.overlay {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 0;
+}
+
+.page {
+	z-index: 1;
+	position: relative;
+	top: 240px;
+	padding-left: 50px;
+}
+
+header {
+	z-index: 2;
+}
+
+.details {
+	float: left;
+	text-align: left;
+	width: 60%;
+}
+
+.controls {
+	float: right;
+	width: 20%;
+	margin-top: -100px;
+	margin-right: 50px;
+}
+
+.controls * {
+	display: block;
+	margin: 15px auto;
+}
+
+.controls a {
+	width: 120px;
+	
+	font-size: 1em;
+}
+
+@media screen and (max-width: 750px){
+	.page {
+		top: 5px;
+	}
+	
+	.details {
+		width: 80%;
+	}
+	
+	.controls {
+		width: 80%;
+		margin-top: 20px;
+	}
+}
