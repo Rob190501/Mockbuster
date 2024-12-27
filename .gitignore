@@ -284,3 +284,4 @@ Backup of *.doc*
 *.vpp.working-journal
 *.lock
 tmp/*
+/Mockbuster/target/
