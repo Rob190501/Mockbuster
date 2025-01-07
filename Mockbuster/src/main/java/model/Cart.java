@@ -1,22 +1,21 @@
 package model;
 
-import jakarta.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Collection;
-@Entity
+
 public class Cart {
 
 	private Collection<RentedMovie> rentedMovies;
 	private Collection<PurchasedMovie> purchasedMovies;
 	
 	public Cart() {
-		this.rentedMovies  = new ArrayList<RentedMovie>();
-		this.purchasedMovies = new ArrayList<PurchasedMovie>();
+		this.rentedMovies  = new ArrayList<>();
+		this.purchasedMovies = new ArrayList<>();
 	}
 	
 	public Boolean rentsContains(Integer movieID) {
 		for(RentedMovie movie : rentedMovies) {
-			if(movie.getId().equals(movieID)) {
+			if(movie.getMovie().getId().equals(movieID)) {
 				return Boolean.TRUE;
 			}
 		}
@@ -25,7 +24,7 @@ public class Cart {
 	
 	public Boolean purchasesContains(Integer movieID) {
 		for(PurchasedMovie movie : purchasedMovies) {
-			if(movie.getId().equals(movieID)) {
+			if(movie.getMovie().getId().equals(movieID)) {
 				return Boolean.TRUE;
 			}
 		}
@@ -34,13 +33,13 @@ public class Cart {
 	
 	public void removeFromCart(Integer movieID) {
 		for(PurchasedMovie movie : purchasedMovies) {
-			if(movie.getId().equals(movieID)) {
+			if(movie.getMovie().getId().equals(movieID)) {
 				purchasedMovies.remove(movie);
 				return;
 			}
 		}
 		for(RentedMovie movie : rentedMovies) {
-			if(movie.getId().equals(movieID)) {
+			if(movie.getMovie().getId().equals(movieID)) {
 				rentedMovies.remove(movie);
 				return;
 			}
@@ -51,11 +50,11 @@ public class Cart {
 		Float total = 0.0f;
 		
 		for(PurchasedMovie movie : purchasedMovies) {
-			total += movie.getPurchasePrice();
+			total += movie.getMovie().getPurchasePrice();
 		}
 		
 		for(RentedMovie movie : rentedMovies) {
-			total += movie.getDailyRentalPrice() * movie.getDays();
+			total += movie.getMovie().getDailyRentalPrice() * movie.getDays();
 		}
 		
 		return total;
@@ -72,7 +71,7 @@ public class Cart {
 	
 	public void decreaseRentDays(Integer movieID) {
 		for(RentedMovie movie : rentedMovies) {
-			if(movie.getId().equals(movieID)) {
+			if(movie.getMovie().getId().equals(movieID)) {
 				if(movie.getDays() > 1) {
 					movie.setDays(movie.getDays()-1);
 				}
@@ -83,8 +82,8 @@ public class Cart {
 	
 	public void increaseRentDays(Integer movieID) {
 		for(RentedMovie movie : rentedMovies) {
-			if(movie.getId().equals(movieID)) {
-				if(movie.getDays() < movie.getAvailableLicenses()) {
+			if(movie.getMovie().getId().equals(movieID)) {
+				if(movie.getDays() < movie.getMovie().getAvailableLicenses()) {
 					movie.setDays(movie.getDays()+1);
 				}
 				return;

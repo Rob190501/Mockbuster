@@ -9,38 +9,40 @@ import jakarta.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import control.exceptions.DAOException;
+import jakarta.inject.Inject;
 import model.dao.UserDAO;
 
 public class SetAdminServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
+    @Inject
+    private UserDAO userDAO;
     
     public SetAdminServlet() {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action").trim();
-		Integer id = Integer.parseInt(request.getParameter("id").trim());
-		UserDAO userDAO = new UserDAO((DataSource)getServletContext().getAttribute("DataSource"));
-		
-		try {
-			if(action.equals("set")) {
-				userDAO.setAdmin(id, Boolean.TRUE);
-			}
-			if(action.equals("remove")) {
-				userDAO.setAdmin(id, Boolean.FALSE);
-			}
-			
-			response.sendRedirect(request.getContextPath() + "/admin/allUsersPage.jsp");
-			return;
-		} catch (DAOException e) {
-			e.printStackTrace();
-			throw new ServletException(e);
-		}
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action").trim();
+        Integer id = Integer.parseInt(request.getParameter("id").trim());
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+        try {
+            if (action.equals("set")) {
+                userDAO.setAdmin(id, Boolean.TRUE);
+            }
+            if (action.equals("remove")) {
+                userDAO.setAdmin(id, Boolean.FALSE);
+            }
 
+            response.sendRedirect(request.getContextPath() + "/admin/allUsersPage.jsp");
+            return;
+        } catch (DAOException e) {
+            e.printStackTrace();
+            throw new ServletException(e);
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

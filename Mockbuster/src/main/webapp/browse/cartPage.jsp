@@ -55,10 +55,10 @@
 					for(PurchasedMovie movie : cart.getPurchasedMovies()) {
 						%>
 						<tr>
-							<td><%= movie.getTitle() %></td>
+							<td><%= movie.getMovie().getTitle() %></td>
 							<td><%= movie.getPrice() %>€</td>
 							<td>
-								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=remove&movieid=<%= movie.getId() %>">
+                                                            <a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=remove&movieid=<%= movie.getMovie().getId() %>">
 									X
 								</a>
 							</td>
@@ -85,16 +85,16 @@
 					for(RentedMovie movie : cart.getRentedMovies()) {
 						%>
 						<tr>
-							<td><%= movie.getTitle() %></td>
+							<td><%= movie.getMovie().getTitle() %></td>
 							<td><%= movie.getDailyPrice() %>€</td>
 							<td>
 								<%= movie.getDays() %>
-								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=decreasedays&movieid=<%=movie.getId()%>">-</a>
-								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=increasedays&movieid=<%=movie.getId()%>">+</a>
+								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=decreasedays&movieid=<%=movie.getMovie().getId()%>">-</a>
+                                                                <a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=increasedays&movieid=<%=movie.getMovie().getId()%>">+</a>
 							</td>
 							<td><%= movie.getDailyPrice() * movie.getDays() %>€</td>
 							<td>
-								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=remove&movieid=<%= movie.getId() %>">
+								<a href = "<%= request.getContextPath() %>/browse/UpdateCartServlet?action=remove&movieid=<%= movie.getMovie().getId() %>">
 									X
 								</a>
 							</td>

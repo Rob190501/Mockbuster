@@ -32,7 +32,7 @@
 				for(PurchasedMovie movie: order.getPurchasedMovies()) {
 					%>
 					<p>
-						<%= movie.getTitle() %> -
+						<%= movie.getMovie().getTitle() %> -
 						<%= movie.getPrice() %>€
 					<p>
 					<%
@@ -52,7 +52,7 @@
 				for(RentedMovie movie: order.getRentedMovies()) {
 					%>
 					<p>
-						<%= movie.getTitle() %> -
+						<%= movie.getMovie().getTitle() %> -
 						<%= movie.getDays() %> giorni x 
 						<%= movie.getDailyPrice() %>€ = 
 						<%= movie.getDays() * movie.getDailyPrice() %>€

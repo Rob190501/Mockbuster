@@ -1,58 +1,83 @@
 package model;
 
-public class PurchasedMovie extends Movie {
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 1L;
-	private Order order;
-	private Float price;
-	
-	public PurchasedMovie() {
-		super();
-	}
-	
-	public PurchasedMovie(Movie movie, Order order, Float price) {
-		super(movie.getId(),
-			  movie.getTitle(),
-		      movie.getPlot(), 
-		      movie.getDuration(), 
-		      movie.getYear(), 
-		      movie.getAvailableLicenses(), 
-		      movie.getDailyRentalPrice(), 
-		      movie.getPurchasePrice(),
-		      movie.isVisible(), 
-		      movie.getPosterPath());
-		this.order = order;
-		this.price = price;
-	}
-	
-	public PurchasedMovie(Movie movie, Float price) {
-		super(movie.getId(),
-			  movie.getTitle(),
-		      movie.getPlot(), 
-		      movie.getDuration(), 
-		      movie.getYear(), 
-		      movie.getAvailableLicenses(), 
-		      movie.getDailyRentalPrice(), 
-		      movie.getPurchasePrice(),
-		      movie.isVisible(), 
-		      movie.getPosterPath());
-		this.order = null;
-		this.price = price;
-	}
+@Entity
+@Table(name = "movie_purchase_order")
+public class PurchasedMovie implements Serializable {
 
-	public Order getOrder() {
-		return order;
-	}
+    private static final long serialVersionUID = 1L;
+    
+    //public static final String RETRIEVE_BY_ORDERID_AND_USERID = "PurchasedMovie.RETRIEVE_BY_ORDERID_AND_USERID";
+   
+    @EmbeddedId
+    private OrderedMovieKey id;
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    @MapsId("orderID")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-	public Float getPrice() {
-		return price;
-	}
+    @MapsId("movieID")
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
-	public void setPrice(Float price) {
-		this.price = price;
-	}
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private Float price;
+
+    public PurchasedMovie() {
+    }
+
+    public PurchasedMovie(Movie movie, Order order, Float price) {
+        this.movie = movie;
+        this.order = order;
+        this.price = price;
+    }
+
+    public PurchasedMovie(Movie movie, Float price) {
+        this.movie = movie;
+        this.order = null;
+        this.price = price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 }

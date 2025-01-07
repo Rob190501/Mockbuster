@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
     <session-config>
         <session-timeout>
             30
@@ -23,22 +23,24 @@
     
     
     <resource-ref>
-    <description>Mockbuster Database</description>
-    <res-ref-name>jdbc/mockbuster</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
+        <description>Mockbuster Database</description>
+        <res-ref-name>jdbc/mockbuster</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
     </resource-ref>
+    
+    <context-param>
+        <param-name>posterSavePath</param-name>
+        <param-value>/Users/roberto/Documents/GitHub/Mockbuster/Mockbuster/src/main/webapp/images/posters/</param-value>
+    </context-param>
 
-  
-  
-  
-	<welcome-file-list>
-		<welcome-file>common/index.jsp</welcome-file>
-	</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>common/index.jsp</welcome-file>
+    </welcome-file-list>
 	
 	
 	
-	<error-page>
+    <error-page>
         <error-code>404</error-code>
         <location>/errors/error404.jsp</location>
     </error-page>
@@ -57,272 +59,272 @@
     
     
 	
-	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-	    <servlet-class>control.common.LoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>control.common.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/common/LoginServlet</url-pattern>
     </servlet-mapping>
 	
-	<servlet>
-		<servlet-name>LogoutServlet</servlet-name>
-	    <servlet-class>control.common.LogoutServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>control.common.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/common/LogoutServlet</url-pattern>
     </servlet-mapping>
 	
-	<servlet>
-		<servlet-name>SignupServlet</servlet-name>
-	    <servlet-class>control.common.SignupServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>SignupServlet</servlet-name>
+        <servlet-class>control.common.SignupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/common/SignupServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>MovieUploadServlet</servlet-name>
-	    <servlet-class>control.admin.MovieUploadServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>MovieUploadServlet</servlet-name>
+        <servlet-class>control.admin.MovieUploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>MovieUploadServlet</servlet-name>
         <url-pattern>/admin/MovieUploadServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>MovieRetrieveServlet</servlet-name>
-	    <servlet-class>control.common.MovieRetrieveServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>MovieRetrieveServlet</servlet-name>
+        <servlet-class>control.common.MovieRetrieveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>MovieRetrieveServlet</servlet-name>
         <url-pattern>/common/MovieRetrieveServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>MoviePageServlet</servlet-name>
-	    <servlet-class>control.browse.MoviePageServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>MoviePageServlet</servlet-name>
+        <servlet-class>control.browse.MoviePageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>MoviePageServlet</servlet-name>
         <url-pattern>/browse/MoviePageServlet</url-pattern>
     </servlet-mapping>
 	
-	<servlet>
-		<servlet-name>GetOrdersServlet</servlet-name>
-	    <servlet-class>control.browse.GetOrdersServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+    <servlet>
+        <servlet-name>GetOrdersServlet</servlet-name>
+        <servlet-class>control.browse.GetOrdersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>GetOrdersServlet</servlet-name>
         <url-pattern>/browse/GetOrdersServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>GetAllOrdersServlet</servlet-name>
-	    <servlet-class>control.admin.GetAllOrdersServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>GetAllOrdersServlet</servlet-name>
+        <servlet-class>control.admin.GetAllOrdersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>GetAllOrdersServlet</servlet-name>
         <url-pattern>/admin/GetAllOrdersServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>SearchMovieTitleServlet</servlet-name>
-	    <servlet-class>control.browse.SearchMovieTitleServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>SearchMovieTitleServlet</servlet-name>
+        <servlet-class>control.browse.SearchMovieTitleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>SearchMovieTitleServlet</servlet-name>
         <url-pattern>/browse/SearchMovieTitleServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>UpdateCartServlet</servlet-name>
-	    <servlet-class>control.browse.UpdateCartServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>UpdateCartServlet</servlet-name>
+        <servlet-class>control.browse.UpdateCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>UpdateCartServlet</servlet-name>
         <url-pattern>/browse/UpdateCartServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>PlaceOrderServlet</servlet-name>
-	    <servlet-class>control.browse.PlaceOrderServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>PlaceOrderServlet</servlet-name>
+        <servlet-class>control.browse.PlaceOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>PlaceOrderServlet</servlet-name>
         <url-pattern>/browse/PlaceOrderServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>MovieUpdateServlet</servlet-name>
-	    <servlet-class>control.admin.MovieUpdateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>MovieUpdateServlet</servlet-name>
+        <servlet-class>control.admin.MovieUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>MovieUpdateServlet</servlet-name>
         <url-pattern>/admin/MovieUpdateServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>UpdateUserServlet</servlet-name>
-	    <servlet-class>control.browse.UpdateUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>UpdateUserServlet</servlet-name>
+        <servlet-class>control.browse.UpdateUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>UpdateUserServlet</servlet-name>
         <url-pattern>/browse/UpdateUserServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>GetAllUsersServlet</servlet-name>
-	    <servlet-class>control.admin.GetAllUsersServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>GetAllUsersServlet</servlet-name>
+        <servlet-class>control.admin.GetAllUsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>GetAllUsersServlet</servlet-name>
         <url-pattern>/admin/GetAllUsersServlet</url-pattern>
     </servlet-mapping>
     
     <servlet>
-		<servlet-name>SetAdminServlet</servlet-name>
-	    <servlet-class>control.admin.SetAdminServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
+        <servlet-name>SetAdminServlet</servlet-name>
+        <servlet-class>control.admin.SetAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>SetAdminServlet</servlet-name>
         <url-pattern>/admin/SetAdminServlet</url-pattern>
     </servlet-mapping>
 	
 	
 	
-	<filter>
-		<filter-name>AccessControlFilter</filter-name>
-		<filter-class>control.filters.AccessControlFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>AccessControlFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>AccessControlFilter</filter-name>
+        <filter-class>control.filters.AccessControlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>LoginFilter</filter-name>
-		<filter-class>control.filters.LoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/common/LoginServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>control.filters.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/common/LoginServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>SignupFormFilter</filter-name>
-		<filter-class>control.filters.SignupFormFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>SignupFormFilter</filter-name>
-		<url-pattern>/common/SignupServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>SignupFormFilter</filter-name>
+        <filter-class>control.filters.SignupFormFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SignupFormFilter</filter-name>
+        <url-pattern>/common/SignupServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>MovieUploadFormFilter</filter-name>
-		<filter-class>control.filters.MovieUploadFormFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>MovieUploadFormFilter</filter-name>
-		<url-pattern>/admin/MovieUploadServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>MovieUploadFormFilter</filter-name>
+        <filter-class>control.filters.MovieUploadFormFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MovieUploadFormFilter</filter-name>
+        <url-pattern>/admin/MovieUploadServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>GetOrdersFilter</filter-name>
-		<filter-class>control.filters.GetOrdersFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GetOrdersFilter</filter-name>
-		<url-pattern>/browse/GetOrdersServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>GetOrdersFilter</filter-name>
+        <filter-class>control.filters.GetOrdersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>GetOrdersFilter</filter-name>
+        <url-pattern>/browse/GetOrdersServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>GetAllOrdersFilter</filter-name>
-		<filter-class>control.filters.GetAllOrdersFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GetAllOrdersFilter</filter-name>
-		<url-pattern>/admin/GetAllOrdersServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>GetAllOrdersFilter</filter-name>
+        <filter-class>control.filters.GetAllOrdersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>GetAllOrdersFilter</filter-name>
+        <url-pattern>/admin/GetAllOrdersServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>RefreshCartFilter</filter-name>
-		<filter-class>control.filters.RefreshCartFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>RefreshCartFilter</filter-name>
-		<url-pattern>/browse/cartPage.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>RefreshCartFilter</filter-name>
-		<url-pattern>/browse/PlaceOrderServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>RefreshCartFilter</filter-name>
+        <filter-class>control.filters.RefreshCartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RefreshCartFilter</filter-name>
+        <url-pattern>/browse/cartPage.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefreshCartFilter</filter-name>
+        <url-pattern>/browse/PlaceOrderServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>UpdateCartFilter</filter-name>
-		<filter-class>control.filters.UpdateCartFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>UpdateCartFilter</filter-name>
-		<url-pattern>/browse/UpdateCartServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>UpdateCartFilter</filter-name>
+        <filter-class>control.filters.UpdateCartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UpdateCartFilter</filter-name>
+        <url-pattern>/browse/UpdateCartServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>PlaceOrderFilter</filter-name>
-		<filter-class>control.filters.PlaceOrderFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>PlaceOrderFilter</filter-name>
-		<url-pattern>/browse/PlaceOrderServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>PlaceOrderFilter</filter-name>
+        <filter-class>control.filters.PlaceOrderFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PlaceOrderFilter</filter-name>
+        <url-pattern>/browse/PlaceOrderServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>MovieUpdateFilter</filter-name>
-		<filter-class>control.filters.MovieUpdateFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>MovieUpdateFilter</filter-name>
-		<url-pattern>/admin/MovieUpdateServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>MovieUpdateFilter</filter-name>
+        <filter-class>control.filters.MovieUpdateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MovieUpdateFilter</filter-name>
+        <url-pattern>/admin/MovieUpdateServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>MoviePageFilter</filter-name>
-		<filter-class>control.filters.MoviePageFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>MoviePageFilter</filter-name>
-		<url-pattern>/browse/MoviePageServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>MoviePageFilter</filter-name>
+        <filter-class>control.filters.MoviePageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MoviePageFilter</filter-name>
+        <url-pattern>/browse/MoviePageServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>UpdateUserFilter</filter-name>
-		<filter-class>control.filters.UpdateUserFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>UpdateUserFilter</filter-name>
-		<url-pattern>/browse/UpdateUserServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>UpdateUserFilter</filter-name>
+        <filter-class>control.filters.UpdateUserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UpdateUserFilter</filter-name>
+        <url-pattern>/browse/UpdateUserServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>SetAdminFilter</filter-name>
-		<filter-class>control.filters.SetAdminFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>SetAdminFilter</filter-name>
-		<url-pattern>/admin/SetAdminServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>SetAdminFilter</filter-name>
+        <filter-class>control.filters.SetAdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SetAdminFilter</filter-name>
+        <url-pattern>/admin/SetAdminServlet</url-pattern>
+    </filter-mapping>
 	
-	<filter>
-		<filter-name>MovieRetrieveFilter</filter-name>
-		<filter-class>control.filters.MovieRetrieveFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>MovieRetrieveFilter</filter-name>
-		<url-pattern>/common/MovieRetrieveServlet</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>MovieRetrieveFilter</filter-name>
+        <filter-class>control.filters.MovieRetrieveFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MovieRetrieveFilter</filter-name>
+        <url-pattern>/common/MovieRetrieveServlet</url-pattern>
+    </filter-mapping>
     
     
 </web-app>

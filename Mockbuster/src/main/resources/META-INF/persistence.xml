@@ -5,9 +5,19 @@
     <persistence-unit name="mockbusterPU" transaction-type="JTA">
         <!-- Nome del DataSource configurato nel context.xml -->
         <jta-data-source>jdbc/mockbuster</jta-data-source>
+        <class>model.Movie</class>
+        <class>model.Order</class>
+        <class>model.RentedMovie</class>
+        <class>model.PurchasedMovie</class>
+        <class>model.User</class>
         <properties>
-            <!-- Proprietà opzionali per Hibernate o altre implementazioni JPA -->
             <property name="jakarta.persistence.schema-generation.database.action" value="none" />
+            
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <!-- Abilita i commenti SQL -->
+            <property name="eclipselink.logging.sql" value="true"/>
+
         </properties>
     </persistence-unit>
 </persistence>

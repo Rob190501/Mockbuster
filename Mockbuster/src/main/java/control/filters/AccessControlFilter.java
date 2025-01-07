@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import control.exceptions.DAOException;
+import jakarta.inject.Inject;
 import model.Cart;
 import model.User;
 import model.dao.UserDAO;
@@ -23,6 +24,9 @@ import model.dao.UserDAO;
 @WebFilter("/AccessControlFilter")
 public class AccessControlFilter extends HttpFilter implements Filter {
     private static final long serialVersionUID = 1L;
+    
+    @Inject
+    private UserDAO userDAO;
 
     public AccessControlFilter() {
         super();
@@ -48,7 +52,7 @@ public class AccessControlFilter extends HttpFilter implements Filter {
             if(httpRequest.getSession().getAttribute("cart") == null) {
                 httpRequest.getSession().setAttribute("cart", new Cart());
             }
-            UserDAO userDAO = new UserDAO((DataSource)httpRequest.getServletContext().getAttribute("DataSource"));
+            
             try {
                 httpRequest.getSession().setAttribute("user", userDAO.retrieveByID(user.getId()));
             } catch (DAOException e) {

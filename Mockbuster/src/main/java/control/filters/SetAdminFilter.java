@@ -18,38 +18,38 @@ import model.User;
 
 @WebFilter("/SetAdminFilter")
 public class SetAdminFilter extends HttpFilter implements Filter {
-    
+
     public SetAdminFilter() {
         super();
     }
-    
-	public void destroy() {
-	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest)request;
-		HttpServletResponse httpResponse = (HttpServletResponse)response;
-		User user = (User)httpRequest.getSession().getAttribute("user");
-		
-		try {
-			String action = httpRequest.getParameter("action").trim();
-			Integer id = Integer.parseInt(httpRequest.getParameter("id").trim());
-			
-			if(!action.equals("set") && !action.equals("remove")) {
-				throw new Exception();
-			}
-			
-			if(user.getId().equals(id)) {
-				throw new Exception();
-			}
-		} catch(Exception e) {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin/allUsersPage.jsp");
-			return;
-		}
-		
-		chain.doFilter(request, response);
-	}
+    public void destroy() {
+    }
 
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        User user = (User) httpRequest.getSession().getAttribute("user");
+
+        try {
+            String action = httpRequest.getParameter("action").trim();
+            Integer id = Integer.parseInt(httpRequest.getParameter("id").trim());
+
+            if (!action.equals("set") && !action.equals("remove")) {
+                throw new Exception();
+            }
+
+            if (user.getId().equals(id)) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin/allUsersPage.jsp");
+            return;
+        }
+
+        chain.doFilter(request, response);
+    }
+
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
 }

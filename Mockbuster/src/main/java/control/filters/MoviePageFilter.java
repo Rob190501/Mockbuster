@@ -14,30 +14,28 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebFilter("/MoviePageFilter")
 public class MoviePageFilter extends HttpFilter implements Filter {
-    
+
     public MoviePageFilter() {
         super();
     }
 
-	public void destroy() {
-	}
+    public void destroy() {
+    }
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest)request;
-		HttpServletResponse httpResponse = (HttpServletResponse)response;
-		
-		try {
-			Integer id = Integer.parseInt(httpRequest.getParameter("id").trim());
-		} catch(Exception e) {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/common/index.jsp");
-			return;
-		}
-		
-		
-		chain.doFilter(request, response);
-	}
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
+        try {
+            Integer id = Integer.parseInt(httpRequest.getParameter("id").trim());
+        } catch (Exception e) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/common/index.jsp");
+            return;
+        }
 
+        chain.doFilter(request, response);
+    }
+
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
 }
