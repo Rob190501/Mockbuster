@@ -1,4 +1,4 @@
-package model;
+package persistence.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -133,7 +133,7 @@ public class User implements Serializable {
         this.credit = credit;
     }
     
-    public void decreaseCredit(Float amount) {
+    public void deductCredit(Float amount) {
         this.credit -= amount;
     }
 

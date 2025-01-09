@@ -17,9 +17,9 @@ import javax.sql.DataSource;
 
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Cart;
-import model.User;
-import model.dao.UserDAO;
+import persistence.model.Cart;
+import persistence.model.User;
+import persistence.dao.UserDAO;
 
 @WebFilter("/AccessControlFilter")
 public class AccessControlFilter extends HttpFilter implements Filter {

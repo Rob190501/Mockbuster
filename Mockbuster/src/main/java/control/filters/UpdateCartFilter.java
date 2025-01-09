@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.Cart;
+import persistence.model.Cart;
 
 public class UpdateCartFilter extends HttpFilter implements Filter {
 

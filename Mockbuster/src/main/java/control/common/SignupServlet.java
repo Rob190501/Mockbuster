@@ -1,27 +1,22 @@
 package control.common;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Cart;
-import model.User;
-import model.dao.UserDAO;
+import persistence.model.Cart;
+import persistence.model.User;
+import persistence.service.UserService;
 
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     public SignupServlet() {
         super();
@@ -34,15 +29,15 @@ public class SignupServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String password = toHash(request.getParameter("password").trim());
+            String password = request.getParameter("password").trim();
             String email = request.getParameter("email").trim();
-
             String firstName = request.getParameter("firstName").trim();
             String lastName = request.getParameter("lastName").trim();
             String billingAddress = request.getParameter("billingAddress").trim();
             User user = new User(email, password, firstName, lastName, billingAddress);
 
-            userDAO.save(user);
+            userService.signup(user);
+            
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("cart", new Cart());
             response.sendRedirect(request.getContextPath() + "/common/index.jsp");
@@ -51,16 +46,4 @@ public class SignupServlet extends HttpServlet {
             throw new ServletException(e);
         }
     }
-
-    private String toHash(String password) throws NoSuchAlgorithmException {
-        String hashString = null;
-        java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        hashString = "";
-        for (byte element : hash) {
-            hashString += Integer.toHexString((element & 0xFF) | 0x100).substring(1, 3);
-        }
-        return hashString;
-    }
-
 }

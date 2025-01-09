@@ -1,4 +1,4 @@
-package model;
+package persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -149,7 +149,7 @@ public class Movie implements Serializable {
         this.availableLicenses = availableLicenses;
     }
     
-    public void decreaseAvailableLicences(Integer amount) {
+    public void deductAvailableLicences(Integer amount) {
         this.availableLicenses -= amount;
     }
 

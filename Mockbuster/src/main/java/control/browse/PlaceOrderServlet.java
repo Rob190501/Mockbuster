@@ -10,17 +10,18 @@ import javax.sql.DataSource;
 
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Cart;
-import model.Order;
-import model.User;
-import model.dao.OrderDAO;
-import model.dao.UserDAO;
+import persistence.model.Cart;
+import persistence.model.Order;
+import persistence.model.User;
+import persistence.dao.OrderDAO;
+import persistence.dao.UserDAO;
+import persistence.service.OrderService;
 
 public class PlaceOrderServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private OrderDAO orderDAO;
+    private OrderService orderService;
     
     public PlaceOrderServlet() {
         super();
@@ -30,14 +31,8 @@ public class PlaceOrderServlet extends HttpServlet {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         User user = (User) request.getSession().getAttribute("user");
 
-        Order order = new Order(user);
-        order.setPurchasedMovies(cart.getPurchasedMovies());
-        order.setRentedMovies(cart.getRentedMovies());
-        order.setTotal(cart.getTotal());
-
         try {
-            orderDAO.placeOrder(order);
-            cart.empty();
+            Order order = orderService.placeOrder(user, cart);
             response.sendRedirect(request.getContextPath() + "/browse/GetOrdersServlet?userid=" + user.getId() + "&orderid=" + order.getId());
             return;
         } catch (DAOException e) {

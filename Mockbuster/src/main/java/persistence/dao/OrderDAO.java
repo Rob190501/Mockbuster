@@ -1,4 +1,4 @@
-package model.dao;
+package persistence.dao;
 
 import java.time.LocalDate;
 
@@ -8,11 +8,11 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
-import model.Movie;
-import model.Order;
-import model.PurchasedMovie;
-import model.RentedMovie;
-import model.User;
+import persistence.model.Movie;
+import persistence.model.Order;
+import persistence.model.PurchasedMovie;
+import persistence.model.RentedMovie;
+import persistence.model.User;
 
 @Stateless
 public class OrderDAO {
@@ -20,22 +20,30 @@ public class OrderDAO {
     @Inject
     private EntityManager em;
 
-    public void placeOrder(Order order) throws DAOException {
+    /*public void placeOrder(Order order) throws DAOException {
         try {
             em.persist(order);
             
             User customer = em.find(User.class, order.getUser().getId());
-            customer.decreaseCredit(order.getTotal());
+            customer.deductCredit(order.getTotal());
             
             for(PurchasedMovie pm : order.getPurchasedMovies()) {
                 Movie orderedMovie = em.find(Movie.class, pm.getMovie().getId());
-                orderedMovie.decreaseAvailableLicences(1);
+                orderedMovie.deductAvailableLicences(1);
             }
             
             for(RentedMovie rm : order.getRentedMovies()) {
                 Movie orderedMovie = em.find(Movie.class, rm.getMovie().getId());
-                orderedMovie.decreaseAvailableLicences(rm.getDays());
+                orderedMovie.deductAvailableLicences(rm.getDays());
             }
+        } catch(Exception e) {
+            throw new DAOException(e);
+        }
+    }*/
+    
+    public void save(Order order) throws DAOException {
+        try {
+            em.persist(order);
         } catch(Exception e) {
             throw new DAOException(e);
         }

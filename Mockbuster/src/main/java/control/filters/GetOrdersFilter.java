@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.User;
+import persistence.model.User;
 
 @WebFilter("/GetOrdersFilter")
 public class GetOrdersFilter extends HttpFilter implements Filter {

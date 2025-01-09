@@ -1,4 +1,4 @@
-package model;
+package persistence.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -53,10 +53,10 @@ public class Order implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<RentedMovie> rentedMovies = new ArrayList<>();
+    private Collection<RentedMovie> rentedMovies;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<PurchasedMovie> purchasedMovies = new ArrayList<>();
+    private Collection<PurchasedMovie> purchasedMovies;
 
     public Order() {
     }
@@ -86,6 +86,15 @@ public class Order implements Serializable {
         this.user = user;
         this.rentedMovies = new ArrayList<RentedMovie>();
         this.purchasedMovies = new ArrayList<PurchasedMovie>();
+    }
+    
+    public Order(User user, Collection<RentedMovie> rentedMovies, Collection<PurchasedMovie> purchasedMovies, Float total) {
+        this.id = -1;
+        this.date = LocalDate.now();
+        this.total = total;
+        this.user = user;
+        this.rentedMovies = rentedMovies;
+        this.purchasedMovies = purchasedMovies;
     }
 
     public Integer getId() {
@@ -126,14 +135,9 @@ public class Order implements Serializable {
 
     public void setRentedMovies(Collection<RentedMovie> rentedMovies) {
         this.rentedMovies = rentedMovies;
-
-        for (RentedMovie movie : this.rentedMovies) {
-            movie.setOrder(this);
-        }
     }
 
     public void addRentedMovie(RentedMovie movie) {
-        movie.setOrder(this);
         this.rentedMovies.add(movie);
     }
 
@@ -143,14 +147,9 @@ public class Order implements Serializable {
 
     public void setPurchasedMovies(Collection<PurchasedMovie> purchasedMovies) {
         this.purchasedMovies = purchasedMovies;
-
-        for (PurchasedMovie movie : this.purchasedMovies) {
-            movie.setOrder(this);
-        }
     }
 
     public void addPurchasedMovie(PurchasedMovie movie) {
-        movie.setOrder(this);
         this.purchasedMovies.add(movie);
     }
 }

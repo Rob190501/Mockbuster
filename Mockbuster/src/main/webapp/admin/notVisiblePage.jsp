@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.*, java.util.*, java.io.File, model.*"%>
+    pageEncoding="UTF-8" import="persistence.model.*, java.util.*, java.io.File"%>
 
 <%
 	ArrayList<Movie> movieList = (ArrayList<Movie>)request.getAttribute("movieList");

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.User;
+import persistence.model.User;
 
 @WebFilter("/MovieRetrieveFilter")
 public class MovieRetrieveFilter extends HttpFilter implements Filter {

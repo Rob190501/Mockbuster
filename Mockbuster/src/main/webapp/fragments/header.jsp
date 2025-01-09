@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" import = "model.*"%>
+         pageEncoding="UTF-8" import = "persistence.model.*"%>
 <%
     User user = (User) request.getSession().getAttribute("user");
 %>

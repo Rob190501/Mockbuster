@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "model.* , java.util.*, java.time.format.DateTimeFormatter"%>
+    pageEncoding="UTF-8" import = "persistence.model.* , java.util.*, java.time.format.DateTimeFormatter"%>
     
 <%
 	User user = (User)request.getSession().getAttribute("user");

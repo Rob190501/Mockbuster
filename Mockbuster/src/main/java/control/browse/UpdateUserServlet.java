@@ -1,27 +1,20 @@
 package control.browse;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Cart;
-import model.User;
-import model.dao.UserDAO;
+import persistence.model.User;
+import persistence.service.UserService;
 
 public class UpdateUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     public UpdateUserServlet() {
         super();
@@ -35,22 +28,19 @@ public class UpdateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             User user = (User) request.getSession().getAttribute("user");
+            
             String firstName = request.getParameter("firstName").trim();
             String lastName = request.getParameter("lastName").trim();
             String billingAddress = request.getParameter("billingAddress").trim();
             Float credit = Float.parseFloat(request.getParameter("credit").trim());
-
-            User update = new User(user.getId(),
-                                    user.getEmail(),
-                                    user.getPassword(),
-                                    firstName,
-                                    lastName,
-                                    billingAddress,
-                                    credit,
-                                    user.isAdmin());
-            userDAO.update(update);
-
-            request.getSession().setAttribute("user", update);
+            
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setBillingAddress(billingAddress);
+            user.setCredit(credit);
+            
+            userService.update(user);
+            
             response.sendRedirect(request.getContextPath() + "/common/index.jsp");
         } catch (DAOException e) {
             e.printStackTrace();

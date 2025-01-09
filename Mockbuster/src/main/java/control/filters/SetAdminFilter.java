@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.User;
+import persistence.model.User;
 
 @WebFilter("/SetAdminFilter")
 public class SetAdminFilter extends HttpFilter implements Filter {

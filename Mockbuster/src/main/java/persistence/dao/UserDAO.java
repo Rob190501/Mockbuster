@@ -1,4 +1,4 @@
-package model.dao;
+package persistence.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,7 @@ import control.exceptions.DAOException;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import model.User;
+import persistence.model.User;
 
 @Stateless
 public class UserDAO {
@@ -15,9 +15,9 @@ public class UserDAO {
     @Inject
     private EntityManager em;
 
-    public void save(User bean) throws DAOException {
+    public void save(User user) throws DAOException {
         try {
-            em.persist(bean);
+            em.persist(user);
         } catch(Exception e) {
             throw new DAOException(e);
         }
@@ -62,9 +62,9 @@ public class UserDAO {
         }
     }
 
-    public void update(User bean) throws DAOException {
+    public void update(User user) throws DAOException {
         try {
-            em.merge(bean);
+            em.merge(user);
         } catch (Exception e) {
             throw new DAOException(e);
         }

@@ -1,22 +1,31 @@
-package model;
+package persistence.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "movie_rental_order")
-public class RentedMovie implements Serializable {
+@Table(name = "movie_purchase_order")
+public class PurchasedMovie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    //public static final String RETRIEVE_BY_ORDERID_AND_USERID = "PurchasedMovie.RETRIEVE_BY_ORDERID_AND_USERID";
+   
     @EmbeddedId
     private OrderedMovieKey id;
 
@@ -30,27 +39,22 @@ public class RentedMovie implements Serializable {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @Column(name = "daily_price", nullable = false, precision = 10, scale = 2)
-    private Float dailyPrice;
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private Float price;
 
-    @Column(name = "days", nullable = false)
-    private Integer days;
-
-    public RentedMovie() {
+    public PurchasedMovie() {
     }
 
-    public RentedMovie(Movie movie, Order order, Float dailyPrice, Integer days) {
+    public PurchasedMovie(Movie movie, Order order, Float price) {
         this.movie = movie;
         this.order = order;
-        this.dailyPrice = dailyPrice;
-        this.days = days;
+        this.price = price;
     }
 
-    public RentedMovie(Movie movie, Float dailyPrice, Integer days) {
+    public PurchasedMovie(Movie movie, Float price) {
         this.movie = movie;
         this.order = null;
-        this.dailyPrice = dailyPrice;
-        this.days = days;
+        this.price = price;
     }
 
     public Order getOrder() {
@@ -69,19 +73,11 @@ public class RentedMovie implements Serializable {
         this.movie = movie;
     }
 
-    public Float getDailyPrice() {
-        return dailyPrice;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setDailyPrice(Float dailyPrice) {
-        this.dailyPrice = dailyPrice;
-    }
-
-    public Integer getDays() {
-        return days;
-    }
-
-    public void setDays(Integer days) {
-        this.days = days;
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

@@ -15,8 +15,8 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import model.Cart;
-import model.User;
+import persistence.model.Cart;
+import persistence.model.User;
 
 public class PlaceOrderFilter extends HttpFilter implements Filter {
 

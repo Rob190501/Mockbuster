@@ -6,18 +6,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Movie;
-import model.dao.MovieDAO;
+import persistence.model.Movie;
+import persistence.service.MovieService;
 
 @WebServlet("/MovieUpdateServlet")
 public class MovieUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private MovieDAO movieDAO;
+    private MovieService movieService;
 
     public MovieUpdateServlet() {
         super();
@@ -26,7 +25,7 @@ public class MovieUpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer movieid = Integer.parseInt(request.getParameter("movieid").trim());
         try {
-            Movie movie = movieDAO.retrieveByID(movieid);
+            Movie movie = movieService.retrieveByID(movieid);
 
             if (movie == null) {
                 response.sendRedirect(request.getContextPath() + "/common/index.jsp");
@@ -55,11 +54,11 @@ public class MovieUpdateServlet extends HttpServlet {
             Float purchasePrice = Float.parseFloat(request.getParameter("purchasePrice").trim());
             Boolean isVisible = request.getParameter("isVisible") != null;
 
-            Movie tempMovie = new Movie(id, title, plot, duration, year, availableLicenses, dailyRentalPrice, purchasePrice, isVisible);
+            Movie movie = new Movie(id, title, plot, duration, year, availableLicenses, dailyRentalPrice, purchasePrice, isVisible);
 
             try {
-                movieDAO.update(tempMovie);
-                response.sendRedirect(request.getContextPath() + "/browse/MoviePageServlet?id=" + tempMovie.getId());
+                movieService.update(movie);
+                response.sendRedirect(request.getContextPath() + "/browse/MoviePageServlet?id=" + movie.getId());
                 return;
             } catch (DAOException e) {
                 e.printStackTrace();

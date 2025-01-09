@@ -1,41 +1,32 @@
 package control.common;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
-import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
-import model.Movie;
-import model.dao.MovieDAO;
+import persistence.model.Movie;
+import persistence.service.MovieService;
 
 public class MovieRetrieveServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private MovieDAO movieDAO;
+    private MovieService movieService;
 
     public MovieRetrieveServlet() {
         super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //MovieDAO movieDAO = new MovieDAO((DataSource) getServletContext().getAttribute("DataSource"));
         try {
-            String page = request.getParameter("page").trim();
-            Collection<Movie> movieList = movieDAO.retrieveAll();
+            Collection<Movie> movieList = movieService.retrieveAll();
             request.setAttribute("movieList", movieList);
-
+            
+            String page = request.getParameter("page").trim();
             if (page.equals("index")) {
                 request.getRequestDispatcher("/common/index.jsp").forward(request, response);
                 return;

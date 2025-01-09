@@ -1,4 +1,4 @@
-package model.dao;
+package persistence.dao;
 
 import java.util.Collection;
 import control.exceptions.DAOException;
@@ -6,7 +6,7 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
-import model.Movie;
+import persistence.model.Movie;
 
 @Stateless
 public class MovieDAO {
@@ -14,9 +14,9 @@ public class MovieDAO {
     @Inject
     private EntityManager em;
     
-    public void save(Movie bean) throws DAOException {
+    public void save(Movie movie) throws DAOException {
         try {
-            em.persist(bean);
+            em.persist(movie);
         } catch(Exception e) {
             throw new DAOException(e);
         }
@@ -50,17 +50,17 @@ public class MovieDAO {
     }
 
     //sostituire con merge
-    public void update(Movie bean) throws DAOException {
+    public void update(Movie movieUpdates) throws DAOException {
         try {
-            Movie movie = em.find(Movie.class, bean.getId());
-            movie.setTitle(bean.getTitle());
-            movie.setPlot(bean.getPlot());
-            movie.setDuration(bean.getDuration());
-            movie.setYear(bean.getYear());
-            movie.setAvailableLicenses(bean.getAvailableLicenses());
-            movie.setDailyRentalPrice(bean.getDailyRentalPrice());
-            movie.setPurchasePrice(bean.getPurchasePrice());
-            movie.setVisible(bean.isVisible());
+            Movie movie = em.find(Movie.class, movieUpdates.getId());
+            movie.setTitle(movieUpdates.getTitle());
+            movie.setPlot(movieUpdates.getPlot());
+            movie.setDuration(movieUpdates.getDuration());
+            movie.setYear(movieUpdates.getYear());
+            movie.setAvailableLicenses(movieUpdates.getAvailableLicenses());
+            movie.setDailyRentalPrice(movieUpdates.getDailyRentalPrice());
+            movie.setPurchasePrice(movieUpdates.getPurchasePrice());
+            movie.setVisible(movieUpdates.isVisible());
         } catch(Exception e) {
             throw new DAOException(e);
         }

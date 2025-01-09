@@ -2,21 +2,18 @@ package control.admin;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.dao.UserDAO;
+import persistence.service.UserService;
 
 public class SetAdminServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
     
     public SetAdminServlet() {
         super();
@@ -28,10 +25,10 @@ public class SetAdminServlet extends HttpServlet {
 
         try {
             if (action.equals("set")) {
-                userDAO.setAdmin(id, Boolean.TRUE);
+                userService.setAdmin(id, Boolean.TRUE);
             }
             if (action.equals("remove")) {
-                userDAO.setAdmin(id, Boolean.FALSE);
+                userService.setAdmin(id, Boolean.FALSE);
             }
 
             response.sendRedirect(request.getContextPath() + "/admin/allUsersPage.jsp");

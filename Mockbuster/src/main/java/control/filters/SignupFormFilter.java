@@ -2,24 +2,18 @@ package control.filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.dao.UserDAO;
+import persistence.service.UserService;
 
 @WebFilter("/SignupFormFilter")
 public class SignupFormFilter extends HttpFilter implements Filter {
@@ -27,7 +21,7 @@ public class SignupFormFilter extends HttpFilter implements Filter {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     public SignupFormFilter() {
         super();
@@ -53,7 +47,7 @@ public class SignupFormFilter extends HttpFilter implements Filter {
             errors.add("Email non valida");
         } else {
             try {
-                if (!userDAO.checkEmailAvailability(email)) {
+                if (!userService.checkEmailAvailability(email)) {
                     errors.add("Email gia' registrata");
                 }
             } catch (DAOException e) {

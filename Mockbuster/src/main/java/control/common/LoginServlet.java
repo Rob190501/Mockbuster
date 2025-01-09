@@ -1,31 +1,24 @@
 package control.common;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Cart;
-import model.User;
-import model.dao.UserDAO;
+import persistence.model.Cart;
+import persistence.model.User;
+import persistence.service.UserService;
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
     
     public LoginServlet() {
         super();
@@ -43,9 +36,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password").trim();
 
         try {
-            password = toHash(password);
-
-            User user = userDAO.retrieveByEmailAndPassword(email, password);
+            User user = userService.login(email, password);
 
             if (user == null) {
                 ArrayList<String> errors = new ArrayList<>();
@@ -63,16 +54,5 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             throw new ServletException(e);
         }
-    }
-
-    private String toHash(String password) throws NoSuchAlgorithmException {
-        String hashString = null;
-        java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        hashString = "";
-        for (byte element : hash) {
-            hashString += Integer.toHexString((element & 0xFF) | 0x100).substring(1, 3);
-        }
-        return hashString;
     }
 }

@@ -2,24 +2,16 @@ package control.filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
-import control.exceptions.DAOException;
-import model.User;
-import model.dao.UserDAO;
+import persistence.model.User;
 
 @WebFilter("/SignupFormFilter")
 public class UpdateUserFilter extends HttpFilter implements Filter {

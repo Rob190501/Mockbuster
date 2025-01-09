@@ -4,21 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import jakarta.servlet.RequestDispatcher;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Movie;
-import model.dao.MovieDAO;
+import persistence.model.Movie;
+import persistence.service.MovieService;
 
 @MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
                  maxFileSize=1024*1024*50,          // 50 MB
@@ -26,10 +20,9 @@ import model.dao.MovieDAO;
                  location="/")
 public class MovieUploadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static String IMAGE_DIR = "images/posters";
     
     @Inject
-    private MovieDAO movieDAO;
+    private MovieService movieService;
 
     public MovieUploadServlet() {
         super();
@@ -58,7 +51,7 @@ public class MovieUploadServlet extends HttpServlet {
         
         try {
             poster.write(savePath + randomPosterName);
-            movieDAO.save(movie);
+            movieService.upload(movie);
             
             File posterFile = new File(savePath + randomPosterName);
             
@@ -66,9 +59,8 @@ public class MovieUploadServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/common/index.jsp");
             }
             else {
-                throw new IOException();
+                throw new IOException("Impossibile salvare il poster");
             }
-            
         } catch (DAOException | IOException e) {
             e.printStackTrace();
             throw new ServletException(e);

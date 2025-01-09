@@ -2,27 +2,23 @@ package control.browse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import model.Movie;
-import model.dao.MovieDAO;
+import java.util.Collection;
+import persistence.model.Movie;
+import persistence.service.MovieService;
 
 public class SearchMovieTitleServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Inject
-    private MovieDAO movieDAO;
+    private MovieService movieService;
 
     public SearchMovieTitleServlet() {
         super();
@@ -39,7 +35,7 @@ public class SearchMovieTitleServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         try {
-            ArrayList<Movie> movies = (ArrayList<Movie>) movieDAO.retrieveByTitle(title);
+            Collection<Movie> movies = movieService.retrieveByTitle(title);
             
             JSONArray jsonMovies = new JSONArray();
             JSONObject jsonResponse = new JSONObject();
