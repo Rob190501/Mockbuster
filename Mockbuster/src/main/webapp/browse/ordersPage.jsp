@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import = "persistence.model.* , java.util.*, java.time.format.DateTimeFormatter"%>
     
 <%
-	User user = (User)request.getSession().getAttribute("user");
+	Customer customer = (Customer)request.getSession().getAttribute("user");
 	List<Order> orders = (List<Order>)request.getAttribute("orders");
 	
 	if(orders == null) {
@@ -43,7 +43,7 @@
 						<td><%= order.getId() %></td>
 						<td><%= order.getDate().format(formatter) %></td>
 						<td><%= order.getTotal() %>€</td>
-						<td><a href ="<%= request.getContextPath() %>/browse/GetOrdersServlet?userid=<%=user.getId()%>&orderid=<%=order.getId()%>">Dettagli</a></td>
+						<td><a href ="<%= request.getContextPath() %>/browse/GetOrdersServlet?userid=<%=customer.getId()%>&orderid=<%=order.getId()%>">Dettagli</a></td>
 					</tr>
 					<%
 				}

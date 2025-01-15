@@ -7,7 +7,8 @@ import control.exceptions.DAOException;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import persistence.model.User;
+import jakarta.persistence.NoResultException;
+import persistence.model.Customer;
 
 @Stateless
 public class UserDAO {
@@ -15,7 +16,7 @@ public class UserDAO {
     @Inject
     private EntityManager em;
 
-    public void save(User user) throws DAOException {
+    public void save(Customer user) throws DAOException {
         try {
             em.persist(user);
         } catch(Exception e) {
@@ -23,28 +24,31 @@ public class UserDAO {
         }
     }
 
-    public User retrieveByID(int id) throws DAOException {
+    public Customer retrieveByID(int id) throws DAOException {
         try {
-            return em.find(User.class, id);
+            return em.find(Customer.class, id);
         } catch(Exception e) {
             throw new DAOException(e);
         }
     }
-
-    public User retrieveByEmailAndPassword(String email, String password) throws DAOException {
+    
+    public <T>T retrieveByEmailAndPassword(String email, String password, Class<T> entityClass) throws DAOException {
         try {
-            return em.createNamedQuery(User.RETRIEVE_BY_EMAIL_AND_PSW, User.class)
+            String queryName = entityClass.getSimpleName() + ".RETRIEVE_BY_EMAIL_AND_PSW";
+            return em.createNamedQuery(queryName, entityClass)
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
-        } catch(Exception e) {
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
             throw new DAOException(e);
         }
     }
 
     public Boolean checkEmailAvailability(String email) throws DAOException {
         try {
-            Long count = em.createNamedQuery(User.CHECK_EMAIL_AVAILABILITY, Long.class)
+            Long count = em.createNamedQuery(Customer.CHECK_EMAIL_AVAILABILITY, Long.class)
                            .setParameter("email", email)
                            .getSingleResult();
             return count == 0;
@@ -53,16 +57,16 @@ public class UserDAO {
         }
     }
 
-    public Collection<User> retrieveAll() throws DAOException {
+    public Collection<Customer> retrieveAll() throws DAOException {
         try {
-            return new ArrayList<User>(em.createNamedQuery(User.RETRIEVE_ALL, User.class)
+            return new ArrayList<Customer>(em.createNamedQuery(Customer.RETRIEVE_ALL, Customer.class)
                                         .getResultList());
         } catch(Exception e) {
             throw new DAOException(e);
         }
     }
 
-    public void update(User user) throws DAOException {
+    public void update(Customer user) throws DAOException {
         try {
             em.merge(user);
         } catch (Exception e) {

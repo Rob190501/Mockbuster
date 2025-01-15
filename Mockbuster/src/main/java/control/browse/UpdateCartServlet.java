@@ -7,9 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Cart;
 import persistence.service.CartService;
 
+
+
+//@WebServlet(name = "UpdateCartServlet", urlPatterns = {"/browse/UpdateCartServlet"})
 public class UpdateCartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     

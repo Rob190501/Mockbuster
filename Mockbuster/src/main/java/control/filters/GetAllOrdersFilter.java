@@ -1,22 +1,20 @@
 package control.filters;
 
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/GetAllOrdersFilter")
+
+
 public class GetAllOrdersFilter extends HttpFilter implements Filter {
 
     public GetAllOrdersFilter() {
@@ -29,8 +27,6 @@ public class GetAllOrdersFilter extends HttpFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-        httpRequest.setCharacterEncoding("UTF-8");
 
         try {
             LocalDate from = LocalDate.parse(httpRequest.getParameter("from").trim(), DateTimeFormatter.ISO_DATE);

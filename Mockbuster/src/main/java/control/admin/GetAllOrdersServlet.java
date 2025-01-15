@@ -10,13 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Order;
-import persistence.model.User;
-import persistence.dao.OrderDAO;
-import persistence.dao.UserDAO;
+import persistence.model.Customer;
 import persistence.service.OrderService;
 import persistence.service.UserService;
 
+
+
+//@WebServlet(name = "GetAllOrdersServlet", urlPatterns = {"/admin/GetAllOrdersServlet"})
 public class GetAllOrdersServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -33,7 +35,7 @@ public class GetAllOrdersServlet extends HttpServlet {
         if (request.getParameter("from") == null || request.getParameter("to") == null) {
             try {
                 Collection<Order> orders = orderService.retrieveAll();
-                Collection<User> users = userService.retrieveAll();
+                Collection<Customer> users = userService.retrieveAll();
                 request.setAttribute("orders", orders);
                 request.setAttribute("users", users);
                 request.getRequestDispatcher("/admin/allOrdersPage.jsp").forward(request, response);
@@ -54,7 +56,7 @@ public class GetAllOrdersServlet extends HttpServlet {
         }
 
         try {
-            Collection<User> users = userService.retrieveAll();
+            Collection<Customer> users = userService.retrieveAll();
             Collection<Order> orders = orderService.retrieveAllBetween(from, to, userID);
             
             request.setAttribute("orders", orders);

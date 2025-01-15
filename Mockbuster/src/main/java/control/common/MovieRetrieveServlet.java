@@ -8,9 +8,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Movie;
 import persistence.service.MovieService;
 
+
+
+//@WebServlet(name = "MovieRetrieveServlet", urlPatterns = "/common/MovieRetrieveServlet")
 public class MovieRetrieveServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     

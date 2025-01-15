@@ -11,7 +11,9 @@ import jakarta.inject.Inject;
 import persistence.model.Movie;
 import persistence.service.MovieService;
 
-@WebServlet("/MovieUpdateServlet")
+
+
+//@WebServlet(name = "MovieUpdateServlet", urlPatterns = {"/admin/MovieUpdateServlet"})
 public class MovieUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     

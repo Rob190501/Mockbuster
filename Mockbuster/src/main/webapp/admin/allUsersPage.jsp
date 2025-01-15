@@ -2,9 +2,9 @@
     pageEncoding="UTF-8" import = "persistence.model.* , java.util.*"%>
     
 <%
-	User loggedUser = (User)request.getSession().getAttribute("user");
+	Customer loggedUser = (Customer)request.getSession().getAttribute("user");
 
-	ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
+	ArrayList<Customer> users = (ArrayList<Customer>)request.getAttribute("users");
 	
 	if(users == null) {
 		request.getRequestDispatcher("/admin/GetAllUsersServlet").forward(request, response);
@@ -37,7 +37,7 @@
 					<th>Credito</th>
 					<th></th>
 				</tr>
-				<% for(User user : users) { %>
+				<% for(Customer user : users) { %>
 					<tr>
 						<td><%= user.getId() %></td>
 						<td><%= user.getEmail() %></td>

@@ -11,7 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import persistence.dao.UserDAO;
-import persistence.model.User;
+import persistence.model.CatalogManager;
+import persistence.model.Customer;
+import persistence.model.OrderManager;
 
 /**
  *
@@ -22,15 +24,25 @@ public class UserService {
     @Inject
     private UserDAO userDAO;
     
-    public void signup(User user) throws DAOException, NoSuchAlgorithmException {
+    public void signup(Customer user) throws DAOException, NoSuchAlgorithmException {
         String hashedPassword = toHash(user.getPassword());
         user.setPassword(hashedPassword);
         userDAO.save(user);
     }
     
-    public User login(String email, String password) throws DAOException, NoSuchAlgorithmException {
+    public Customer customerLogin(String email, String password) throws DAOException, NoSuchAlgorithmException {
         password = toHash(password);
-        return userDAO.retrieveByEmailAndPassword(email, password);
+        return userDAO.retrieveByEmailAndPassword(email, password, Customer.class);
+    }
+    
+    public CatalogManager catalogManagerLogin(String email, String password) throws DAOException, NoSuchAlgorithmException {
+        password = toHash(password);
+        return userDAO.retrieveByEmailAndPassword(email, password, CatalogManager.class);
+    }
+    
+    public OrderManager orderManagerLogin(String email, String password) throws DAOException, NoSuchAlgorithmException {
+        password = toHash(password);
+        return userDAO.retrieveByEmailAndPassword(email, password, OrderManager.class);
     }
     
     private String toHash(String password) throws NoSuchAlgorithmException {
@@ -44,11 +56,11 @@ public class UserService {
         return hashString;
     }
     
-    public Collection<User> retrieveAll() throws DAOException {
+    public Collection<Customer> retrieveAll() throws DAOException {
         return userDAO.retrieveAll();
     }
     
-    public void deductCredit(User user, Float amount) throws DAOException {
+    public void deductCredit(Customer user, Float amount) throws DAOException {
         user.deductCredit(amount);
         userDAO.update(user);
     }
@@ -57,7 +69,7 @@ public class UserService {
         //userDAO.setAdmin(id, isAdmin);
     }
     
-    public void update(User user) throws DAOException {
+    public void update(Customer user) throws DAOException {
         userDAO.update(user);
     }
     

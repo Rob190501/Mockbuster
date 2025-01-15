@@ -7,7 +7,7 @@
     <class>persistence.model.Movie</class>
     <class>persistence.model.Order</class>
     <class>persistence.model.PurchasedMovie</class>
-    <class>persistence.model.User</class>
+    <class>persistence.model.Customer</class>
     <properties>
       <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
     </properties>

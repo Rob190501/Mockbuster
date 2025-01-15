@@ -44,13 +44,11 @@
             </div>
         </div>
 
-        <jsp:include page = "/fragments/footer.jsp"/>
-
         <%
             if (request.getParameter("search") != null) {%>
-        <script type="text/javascript">
-            toggleSearchbarVisibility('<%= request.getContextPath()%>');
-        </script>
+            <script type="text/javascript">
+                toggleSearchbarVisibility('<%= request.getContextPath()%>');
+            </script>
         <%
             }
         %>

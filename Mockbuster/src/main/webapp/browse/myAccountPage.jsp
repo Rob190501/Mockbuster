@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, persistence.model.*"%>
 
 <%
-	User user = (User)request.getSession().getAttribute("user");
+	Customer customer = (Customer)request.getSession().getAttribute("user");
 %>
 
 <!DOCTYPE html>
@@ -25,14 +25,14 @@
 		<form id = "userForm" action = "<%= request.getContextPath() %>/browse/UpdateUserServlet"
 		 	method = "post">
 			<div>
-				<p>Email: <%= user.getEmail() %></p>
+				<p>Email: <%= customer.getEmail() %></p>
 			</div>
 			
 			<div>
 				<label for = "firstName">Nome</label>
 				<input type = "text" id = "firstName" name = "firstName"
 					required pattern = "^[A-Za-z]+$"
-					value = "<%= user.getFirstName() %>"
+					value = "<%= customer.getFirstName() %>"
 					onblur = "validateFormField(this, 'firstNameErrorSpan', nameError)">
 				<span id = "firstNameErrorSpan" class = "error"></span>
 			</div>
@@ -41,7 +41,7 @@
 				<label for = "lastName">Cognome</label>
 				<input type = "text" id = "lastName" name = "lastName"
 					required pattern = "^[A-Za-z]+$"
-					value = "<%= user.getLastName() %>"
+					value = "<%= customer.getLastName() %>"
 					onblur = "validateFormField(this, 'lastNameErrorSpan', nameError)">
 				<span id = "lastNameErrorSpan" class = "error"></span>
 			</div>
@@ -50,7 +50,7 @@
 				<label for = "billingAddress">Indirizzo fatturazione</label>
 				<input type = "text" id = "billingAddress" name = "billingAddress"
 					required pattern = "^([A-Za-z]+\s)+\d+\s\d{5}\s[A-Za-z]+$"
-					value = "<%= user.getBillingAddress() %>"
+					value = "<%= customer.getBillingAddress() %>"
 					onblur = "validateFormField(this, 'billingAddressErrorSpan', addressError)">
 				<span id = "billingAddressErrorSpan" class = "error"></span>
 			</div>
@@ -58,8 +58,8 @@
 			<div>
 				<label for = "credit">Saldo</label>
 				<input type = "number" id = "credit" name = "credit"
-					required min = "<%= user.getCredit() %>"
-					value = "<%= user.getCredit() %>" step = "0.5"
+					required min = "<%= customer.getCredit() %>"
+					value = "<%= customer.getCredit() %>" step = "0.5"
 					onblur = "validateFormField(this, 'creditErrorSpan', creditError)">
 				<span id = "creditErrorSpan" class = "error"></span>
 			</div>

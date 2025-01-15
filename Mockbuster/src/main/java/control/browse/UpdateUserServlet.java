@@ -7,9 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
-import persistence.model.User;
+import jakarta.servlet.annotation.WebServlet;
+import persistence.model.Customer;
 import persistence.service.UserService;
 
+
+
+//@WebServlet(name = "UpdateUserServlet", urlPatterns = {"/browse/UpdateUserServlet"})
 public class UpdateUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -27,7 +31,7 @@ public class UpdateUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            User user = (User) request.getSession().getAttribute("user");
+            Customer user = (Customer) request.getSession().getAttribute("user");
             
             String firstName = request.getParameter("firstName").trim();
             String lastName = request.getParameter("lastName").trim();

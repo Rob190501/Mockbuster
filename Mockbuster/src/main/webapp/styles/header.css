@@ -71,9 +71,10 @@ header a:hover {
 	background-color: #FBA92C;
 	
 	margin-top: 85px;
-	
-	
-	margin-left: 170px;
+        
+        right: 30px;
+        
+        width: 200px; 
 	
 	position: fixed;
 	

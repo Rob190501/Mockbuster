@@ -8,10 +8,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Cart;
-import persistence.model.User;
+import persistence.model.Customer;
 import persistence.service.UserService;
 
+
+
+//@WebServlet(name = "SignupServlet", urlPatterns = "/common/SignupServlet")
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -34,7 +38,7 @@ public class SignupServlet extends HttpServlet {
             String firstName = request.getParameter("firstName").trim();
             String lastName = request.getParameter("lastName").trim();
             String billingAddress = request.getParameter("billingAddress").trim();
-            User user = new User(email, password, firstName, lastName, billingAddress);
+            Customer user = new Customer(email, password, firstName, lastName, billingAddress);
 
             userService.signup(user);
             

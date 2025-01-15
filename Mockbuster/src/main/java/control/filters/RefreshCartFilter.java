@@ -12,8 +12,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
 import persistence.model.Cart;
-import persistence.model.User;
+import persistence.model.Customer;
 import persistence.service.CartService;
+
+
 
 public class RefreshCartFilter extends HttpFilter implements Filter {
     
@@ -29,10 +31,9 @@ public class RefreshCartFilter extends HttpFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        httpRequest.setCharacterEncoding("UTF-8");
 
         Cart cart = (Cart) httpRequest.getSession().getAttribute("cart");
-        User user = (User) httpRequest.getSession().getAttribute("user");
+        Customer user = (Customer) httpRequest.getSession().getAttribute("user");
 
         if (user != null && cart == null) {
             cart = new Cart();

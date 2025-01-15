@@ -14,6 +14,23 @@ CREATE TABLE user (
   is_admin boolean NOT NULL DEFAULT FALSE,
   UNIQUE(email)
 ) AUTO_INCREMENT=1;
+select * from user;
+
+DROP TABLE IF EXISTS catalog_manager;
+CREATE TABLE catalog_manager (	
+  id int PRIMARY KEY AUTO_INCREMENT,
+  email varchar(200) NOT NULL,
+  password varchar(200) NOT NULL,
+  UNIQUE(email)
+) AUTO_INCREMENT=1;
+
+DROP TABLE IF EXISTS orders_manager;
+CREATE TABLE orders_manager (	
+  id int PRIMARY KEY AUTO_INCREMENT,
+  email varchar(200) NOT NULL,
+  password varchar(200) NOT NULL,
+  UNIQUE(email)
+) AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (	
@@ -39,7 +56,8 @@ CREATE TABLE movie (
 ) AUTO_INCREMENT=1;
 ALTER TABLE movie ADD COLUMN DTYPE VARCHAR(255) DEFAULT 'MOVIE';
 ALTER TABLE movie DROP COLUMN DTYPE;
-
+update movie set poster_path = '4ccb50b7-3eae-4425-aab1-6c3ab8dfc988.jpg' where id = 18;
+select * from movie;
 
 DROP TABLE IF EXISTS movie_rental_order;
 CREATE TABLE movie_rental_order (	
@@ -82,6 +100,13 @@ INSERT INTO user (email, password, first_name, last_name, billing_address) VALUE
 ('francesca.azzurri@example.com', SHA2('pass8', 512), 'Francesca', 'Azzurri', 'Via Palermo 8 90100 Palermo'),
 ('giovanni.violetto@example.com', SHA2('pass9', 512), 'Giovanni', 'Violetto', 'Via Bari 3 70100 Bari'),
 ('sara.ocra@example.com', SHA2('pass10', 512), 'Sara', 'Ocra', 'Via Genova 14 16100 Genova');
+
+
+
+INSERT INTO catalog_manager (email, password) VALUES
+('catalog.manager@example.com', SHA2('pass4', 512));
+INSERT INTO orders_manager (email, password) VALUES
+('orders.manager@example.com', SHA2('pass4', 512));
 
 
 

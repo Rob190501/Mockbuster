@@ -10,10 +10,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import java.util.UUID;
 import persistence.model.Movie;
 import persistence.service.MovieService;
 
+
+
+//@WebServlet(name = "MovieUploadServlet", urlPatterns = "/admin/MovieUploadServlet")
 @MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
                  maxFileSize=1024*1024*50,          // 50 MB
                  maxRequestSize=1024*1024*100,      // 100 MB

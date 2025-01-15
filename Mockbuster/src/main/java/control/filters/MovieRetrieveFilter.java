@@ -7,14 +7,13 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import security.UserRole.Role;
 
-import persistence.model.User;
 
-@WebFilter("/MovieRetrieveFilter")
+
 public class MovieRetrieveFilter extends HttpFilter implements Filter {
 
     public MovieRetrieveFilter() {
@@ -36,8 +35,8 @@ public class MovieRetrieveFilter extends HttpFilter implements Filter {
             }
 
             if (page.equals("notvisible")) {
-                User user = (User) httpRequest.getSession().getAttribute("user");
-                if (user == null || !user.isAdmin()) {
+                Role role = (Role) httpRequest.getSession().getAttribute("role");
+                if (role != Role.CATALOG_MANAGER) {
                     throw new Exception();
                 }
             }

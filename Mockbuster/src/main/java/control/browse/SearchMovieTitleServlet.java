@@ -10,10 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import java.util.Collection;
 import persistence.model.Movie;
 import persistence.service.MovieService;
 
+
+
+//@WebServlet(name = "SearchMovieTitleServlet", urlPatterns = {"/browse/SearchMovieTitleServlet"})
 public class SearchMovieTitleServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -25,7 +29,6 @@ public class SearchMovieTitleServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title").trim();
         if (title == null) {
             title = "";

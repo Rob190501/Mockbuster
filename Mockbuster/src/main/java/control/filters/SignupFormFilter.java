@@ -8,14 +8,14 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
 import persistence.service.UserService;
 
-@WebFilter("/SignupFormFilter")
+
+
 public class SignupFormFilter extends HttpFilter implements Filter {
  
     private static final long serialVersionUID = 1L;
@@ -32,7 +32,6 @@ public class SignupFormFilter extends HttpFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        httpRequest.setCharacterEncoding("UTF-8");
 
         String email = httpRequest.getParameter("email");
         String password = httpRequest.getParameter("password");

@@ -13,18 +13,18 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 @NamedQueries({
-    @NamedQuery(name = User.RETRIEVE_ALL, query = "SELECT u FROM User u"),
-    @NamedQuery(name = User.RETRIEVE_BY_EMAIL_AND_PSW, query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password"),
-    @NamedQuery(name = User.CHECK_EMAIL_AVAILABILITY, query = "SELECT COUNT(u) FROM User u WHERE u.email = :email"
+    @NamedQuery(name = Customer.RETRIEVE_ALL, query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = Customer.RETRIEVE_BY_EMAIL_AND_PSW, query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password"),
+    @NamedQuery(name = Customer.CHECK_EMAIL_AVAILABILITY, query = "SELECT COUNT(c) FROM Customer c WHERE c.email = :email"
     )
 })
-public class User implements Serializable {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    public static final String RETRIEVE_ALL = "User.RETRIEVE_ALL";
-    public static final String RETRIEVE_BY_EMAIL_AND_PSW = "User.RETRIEVE_BY_EMAIL_AND_PSW";
-    public static final String CHECK_EMAIL_AVAILABILITY = "User.CHECK_EMAIL_AVAILABILITY";
+    public static final String RETRIEVE_ALL = "Customer.RETRIEVE_ALL";
+    public static final String RETRIEVE_BY_EMAIL_AND_PSW = "Customer.RETRIEVE_BY_EMAIL_AND_PSW";
+    public static final String CHECK_EMAIL_AVAILABILITY = "Customer.CHECK_EMAIL_AVAILABILITY";
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,10 +52,10 @@ public class User implements Serializable {
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin = false;
 
-    public User() {
+    public Customer() {
     }
 
-    public User(Integer id, String email, String password, String firstName, String lastName, String billingAddress, Float credit, Boolean isAdmin) {
+    public Customer(Integer id, String email, String password, String firstName, String lastName, String billingAddress, Float credit, Boolean isAdmin) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -66,7 +66,7 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-    public User(String email, String password, String firstName, String lastName, String billingAddress) {
+    public Customer(String email, String password, String firstName, String lastName, String billingAddress) {
         this.id = -1;
         this.email = email;
         this.password = password;

@@ -9,10 +9,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
+import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Order;
-import persistence.model.User;
+import persistence.model.Customer;
 import persistence.service.OrderService;
+import security.UserRole.Role;
 
+
+
+//@WebServlet(name = "GetOrdersServlet", urlPatterns = {"/browse/GetOrdersServlet"})
 public class GetOrdersServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -24,24 +29,28 @@ public class GetOrdersServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        Role role = (Role) request.getSession().getAttribute("role");
         
-        if (request.getParameter("userid") == null || request.getParameter("orderid") == null) {
-            try {
-                Collection<Order> orders = orderService.retrieveByUser(user);
-                request.setAttribute("orders", orders);
-                request.getRequestDispatcher("/browse/ordersPage.jsp").forward(request, response);
-                return;
-            } catch (DAOException e) {
-                e.printStackTrace();
-                throw new ServletException();
+        if(role != Role.ORDER_MANAGER) {
+            Customer user = (Customer) request.getSession().getAttribute("user");
+            
+            if (request.getParameter("userid") == null || request.getParameter("orderid") == null) {
+                try {
+                    Collection<Order> orders = orderService.retrieveByUser(user);
+                    request.setAttribute("orders", orders);
+                    request.getRequestDispatcher("/browse/ordersPage.jsp").forward(request, response);
+                    return;
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                    throw new ServletException();
+                }
             }
         }
 
         Integer orderID = Integer.parseInt(request.getParameter("orderid"));
 
         try {
-            Order orderDetails = orderService.retrieveOrderDetails(user, orderID);
+            Order orderDetails = orderService.retrieveOrderDetails(orderID);
             
             if(orderDetails == null) {
                 response.sendRedirect(request.getContextPath() + "/browse/GetOrdersServlet");

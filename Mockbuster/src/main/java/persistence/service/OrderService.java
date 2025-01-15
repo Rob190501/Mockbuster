@@ -14,7 +14,7 @@ import persistence.model.Cart;
 import persistence.model.Order;
 import persistence.model.PurchasedMovie;
 import persistence.model.RentedMovie;
-import persistence.model.User;
+import persistence.model.Customer;
 
 /**
  *
@@ -30,15 +30,15 @@ public class OrderService {
     @Inject
     private MovieService movieService;
     
-    public Collection<Order> retrieveByUser(User user) throws DAOException {
+    public Collection<Order> retrieveByUser(Customer user) throws DAOException {
         return orderDAO.retrieveByUser(user.getId());
     }
     
-    public Order retrieveOrderDetails(User user, Integer orderID) throws DAOException {
-        return orderDAO.retrieveOrderDetails(user.getId(), orderID);
+    public Order retrieveOrderDetails(Integer orderID) throws DAOException {
+        return orderDAO.retrieveOrderDetails(orderID);
     }
     
-    public Order placeOrder(User user, Cart cart) throws DAOException {
+    public Order placeOrder(Customer user, Cart cart) throws DAOException {
         
         Order order = new Order(user, 
                                 cart.getRentedMovies(), 

@@ -8,29 +8,21 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import security.UserRole.Role;
 
-import control.exceptions.DAOException;
-import jakarta.inject.Inject;
-import persistence.model.Cart;
-import persistence.model.User;
-import persistence.dao.UserDAO;
 
-@WebFilter("/AccessControlFilter")
+
 public class AccessControlFilter extends HttpFilter implements Filter {
     private static final long serialVersionUID = 1L;
     
-    @Inject
-    private UserDAO userDAO;
-
-    public AccessControlFilter() {
-        super();
-    }
+    private Map<Role, List<String>> rolePages;
 
     @Override
     public void destroy() {
@@ -45,52 +37,83 @@ public class AccessControlFilter extends HttpFilter implements Filter {
         
         String targetPage = httpRequest.getServletPath().toLowerCase();
         String indexPage = httpRequest.getContextPath() + "/common/index.jsp";
+        String allOrdersPage = httpRequest.getContextPath() + "/admin/allOrdersPage.jsp";
         
-        User user = (User)httpRequest.getSession().getAttribute("user");
-        
-        if(user != null) {
-            if(httpRequest.getSession().getAttribute("cart") == null) {
-                httpRequest.getSession().setAttribute("cart", new Cart());
-            }
-            
-            try {
-                httpRequest.getSession().setAttribute("user", userDAO.retrieveByID(user.getId()));
-            } catch (DAOException e) {
-                httpRequest.getSession().invalidate();
-                e.printStackTrace();
-                throw new ServletException(e);
-            }
-        }
-        
-        if((targetPage.contains("browse") || targetPage.contains("admin")) && user == null) {
-            httpResponse.sendRedirect(indexPage);
-            return;
-        }
+        Role role = (Role) httpRequest.getSession().getAttribute("role");
         
         if(targetPage.contains("moviepage.jsp") && httpRequest.getAttribute("movie") == null) {
             httpResponse.sendRedirect(indexPage);
             return;
         }
         
-        if(targetPage.contains("admin") && isNotAdmin(user)) {
-            httpResponse.sendRedirect(indexPage);
+        if(isAccessAllowed(role, targetPage)) {
+            chain.doFilter(request, response);
             return;
+        } else {
+            if(role == Role.CUSTOMER || role == Role.CATALOG_MANAGER) {
+                httpResponse.sendRedirect(indexPage);
+                return;
+            }
+            if(role == Role.ORDER_MANAGER) {
+                httpResponse.sendRedirect(allOrdersPage);
+                return;
+            }
         }
-        
-        if((targetPage.contains("login") || targetPage.contains("signup")) && user != null) {
-            httpResponse.sendRedirect(indexPage);
-            return;
-        }
-        
-        chain.doFilter(request, response);
-    }
-
-    private Boolean isNotAdmin(User user) {
-        return user == null ? Boolean.TRUE : !user.isAdmin();
     }
 
     @Override
     public void init(FilterConfig fConfig) throws ServletException {
+        rolePages = new HashMap<>();
+
+        // Pagine consentite per CATALOG_MANAGER
+        rolePages.put(Role.CATALOG_MANAGER, Arrays.asList(
+            "/common/index.jsp",
+            "/common/logoutservlet",
+            "/browse/moviepageservlet",
+            "/admin/movieupdateservlet",
+            "/admin/notvisiblepage.jsp",
+            "/admin/movieupload.jsp"
+        ));
+
+        // Pagine consentite per ORDER_MANAGER
+        rolePages.put(Role.ORDER_MANAGER, Arrays.asList(
+            "/admin/allorderspage.jsp",
+            "/browse/getordersservlet",
+            "/admin/getallordersservlet",
+            "/common/logoutservlet"
+        ));
+    }
+    
+    private boolean isAccessAllowed(Role role, String targetPage) {
+        if(targetPage.startsWith("/styles/") || targetPage.startsWith("/scripts/")) {
+            return true;
+        }
+
+        if((targetPage.contains("login") || targetPage.contains("signup")) && role != null) {
+            return false;
+        }
+        
+        if (role == null) {
+            // Consentire l'accesso solo alle pagine sotto /common/
+            return targetPage.startsWith("/common/");
+        }
+
+        // CUSTOMER può accedere a tutte le pagine eccetto quelle sotto /admin/
+        if (role == Role.CUSTOMER) {
+            return !targetPage.startsWith("/admin/");
+        }
+
+        // Ottieni le pagine consentite per il ruolo
+        List<String> allowedPages = rolePages.get(role);
+
+        // Verifica se la pagina richiesta è consentita
+        for (String page : allowedPages) {
+            if (targetPage.endsWith(page)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
 

@@ -10,11 +10,11 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebFilter("/LoginFilter")
+
+
 public class LoginFilter extends HttpFilter implements Filter {
 
     public LoginFilter() {
@@ -26,7 +26,6 @@ public class LoginFilter extends HttpFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        httpRequest.setCharacterEncoding("UTF-8");
 
         String email = httpRequest.getParameter("email");
         String password = httpRequest.getParameter("password");

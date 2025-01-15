@@ -8,38 +8,13 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
-import persistence.model.Movie;
 import persistence.model.Order;
-import persistence.model.PurchasedMovie;
-import persistence.model.RentedMovie;
-import persistence.model.User;
 
 @Stateless
 public class OrderDAO {
     
     @Inject
     private EntityManager em;
-
-    /*public void placeOrder(Order order) throws DAOException {
-        try {
-            em.persist(order);
-            
-            User customer = em.find(User.class, order.getUser().getId());
-            customer.deductCredit(order.getTotal());
-            
-            for(PurchasedMovie pm : order.getPurchasedMovies()) {
-                Movie orderedMovie = em.find(Movie.class, pm.getMovie().getId());
-                orderedMovie.deductAvailableLicences(1);
-            }
-            
-            for(RentedMovie rm : order.getRentedMovies()) {
-                Movie orderedMovie = em.find(Movie.class, rm.getMovie().getId());
-                orderedMovie.deductAvailableLicences(rm.getDays());
-            }
-        } catch(Exception e) {
-            throw new DAOException(e);
-        }
-    }*/
     
     public void save(Order order) throws DAOException {
         try {
@@ -59,12 +34,9 @@ public class OrderDAO {
         }
     }
 
-    public Order retrieveOrderDetails(Integer userID, Integer orderID) throws DAOException {
+    public Order retrieveOrderDetails(Integer orderID) throws DAOException {
         try {
-            Order out = em.createNamedQuery(Order.RETRIEVE_BY_ID_AND_USERID, Order.class)
-                        .setParameter("id", orderID)
-                        .setParameter("userID", userID)
-                        .getSingleResult();
+            Order out = em.find(Order.class, orderID);
             out.getPurchasedMovies().size();
             out.getRentedMovies().size();
             return out;

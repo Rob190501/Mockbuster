@@ -50,7 +50,7 @@ public class Order implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Customer user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<RentedMovie> rentedMovies;
@@ -61,7 +61,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(User user) {
+    public Order(Customer user) {
         this.id = -1;
         this.date = LocalDate.now();
         this.total = 0.0f;
@@ -79,7 +79,7 @@ public class Order implements Serializable {
         this.purchasedMovies = new ArrayList<PurchasedMovie>();
     }
 
-    public Order(Integer id, LocalDate date, Float total, User user) {
+    public Order(Integer id, LocalDate date, Float total, Customer user) {
         this.id = id;
         this.date = date;
         this.total = total;
@@ -88,7 +88,7 @@ public class Order implements Serializable {
         this.purchasedMovies = new ArrayList<PurchasedMovie>();
     }
     
-    public Order(User user, Collection<RentedMovie> rentedMovies, Collection<PurchasedMovie> purchasedMovies, Float total) {
+    public Order(Customer user, Collection<RentedMovie> rentedMovies, Collection<PurchasedMovie> purchasedMovies, Float total) {
         this.id = -1;
         this.date = LocalDate.now();
         this.total = total;
@@ -121,11 +121,11 @@ public class Order implements Serializable {
         this.total = total;
     }
 
-    public User getUser() {
+    public Customer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Customer user) {
         this.user = user;
     }
 

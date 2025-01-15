@@ -8,12 +8,12 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import persistence.model.User;
+import persistence.model.Customer;
 
-@WebFilter("/SignupFormFilter")
+
+
 public class UpdateUserFilter extends HttpFilter implements Filter {
 
     private static final long serialVersionUID = 1L;
@@ -27,8 +27,7 @@ public class UpdateUserFilter extends HttpFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        httpRequest.setCharacterEncoding("UTF-8");
-        User user = (User) httpRequest.getSession().getAttribute("user");
+        Customer user = (Customer) httpRequest.getSession().getAttribute("user");
 
         String firstName = httpRequest.getParameter("firstName");
         String lastName = httpRequest.getParameter("lastName");

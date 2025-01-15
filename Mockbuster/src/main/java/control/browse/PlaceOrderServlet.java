@@ -6,17 +6,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import control.exceptions.DAOException;
 import jakarta.inject.Inject;
 import persistence.model.Cart;
 import persistence.model.Order;
-import persistence.model.User;
-import persistence.dao.OrderDAO;
-import persistence.dao.UserDAO;
+import persistence.model.Customer;
 import persistence.service.OrderService;
 
+
+
+//@WebServlet(name = "PlaceOrderServlet", urlPatterns = {"/browse/PlaceOrderServlet"})
 public class PlaceOrderServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
@@ -29,7 +28,7 @@ public class PlaceOrderServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
-        User user = (User) request.getSession().getAttribute("user");
+        Customer user = (Customer) request.getSession().getAttribute("user");
 
         try {
             Order order = orderService.placeOrder(user, cart);
