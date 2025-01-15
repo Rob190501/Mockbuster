@@ -27,7 +27,7 @@ public class GetAllUsersServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Collection<Customer> users = userService.retrieveAll();
+            Collection<Customer> users = userService.retrieveAllCustomers();
             request.setAttribute("users", users);
             request.getRequestDispatcher("/admin/allUsersPage.jsp").forward(request, response);
             return;

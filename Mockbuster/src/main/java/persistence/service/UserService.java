@@ -56,7 +56,7 @@ public class UserService {
         return hashString;
     }
     
-    public Collection<Customer> retrieveAll() throws DAOException {
+    public Collection<Customer> retrieveAllCustomers() throws DAOException {
         return userDAO.retrieveAll();
     }
     

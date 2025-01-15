@@ -35,7 +35,7 @@ public class GetAllOrdersServlet extends HttpServlet {
         if (request.getParameter("from") == null || request.getParameter("to") == null) {
             try {
                 Collection<Order> orders = orderService.retrieveAll();
-                Collection<Customer> users = userService.retrieveAll();
+                Collection<Customer> users = userService.retrieveAllCustomers();
                 request.setAttribute("orders", orders);
                 request.setAttribute("users", users);
                 request.getRequestDispatcher("/admin/allOrdersPage.jsp").forward(request, response);
@@ -56,7 +56,7 @@ public class GetAllOrdersServlet extends HttpServlet {
         }
 
         try {
-            Collection<Customer> users = userService.retrieveAll();
+            Collection<Customer> users = userService.retrieveAllCustomers();
             Collection<Order> orders = orderService.retrieveAllBetween(from, to, userID);
             
             request.setAttribute("orders", orders);
