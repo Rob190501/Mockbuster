@@ -65,10 +65,6 @@ public class UserService {
         userDAO.update(user);
     }
     
-    public void setAdmin(Integer id, Boolean isAdmin) throws DAOException {
-        //userDAO.setAdmin(id, isAdmin);
-    }
-    
     public void update(Customer user) throws DAOException {
         userDAO.update(user);
     }

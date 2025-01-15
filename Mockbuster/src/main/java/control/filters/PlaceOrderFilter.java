@@ -35,18 +35,16 @@ public class PlaceOrderFilter extends HttpFilter implements Filter {
         String cartPath = httpRequest.getContextPath() + "/browse/cartPage.jsp";
         ArrayList<String> errors = new ArrayList<String>();
 
-        if (cart.isEmpty()) {
+        if(cart.isEmpty()) {
             httpResponse.sendRedirect(cartPath);
             return;
         }
 
-        if (!user.isAdmin()) {
-            if (user.getCredit() < cart.getTotal()) {
-                errors.add("Credito non sufficiente");
-                httpRequest.setAttribute("errors", errors);
-                httpRequest.getRequestDispatcher("/browse/cartPage.jsp").forward(httpRequest, httpResponse);
-                return;
-            }
+        if(user.getCredit() < cart.getTotal()) {
+            errors.add("Credito non sufficiente");
+            httpRequest.setAttribute("errors", errors);
+            httpRequest.getRequestDispatcher("/browse/cartPage.jsp").forward(httpRequest, httpResponse);
+            return;
         }
 
         chain.doFilter(request, response);

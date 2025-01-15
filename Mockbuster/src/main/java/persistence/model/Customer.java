@@ -49,13 +49,10 @@ public class Customer implements Serializable {
     @Column(name = "credit", nullable = false, precision = 10, scale = 2)
     private Float credit = 0.0f;
 
-    @Column(name = "is_admin", nullable = false)
-    private Boolean isAdmin = false;
-
     public Customer() {
     }
 
-    public Customer(Integer id, String email, String password, String firstName, String lastName, String billingAddress, Float credit, Boolean isAdmin) {
+    public Customer(Integer id, String email, String password, String firstName, String lastName, String billingAddress, Float credit) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -63,7 +60,6 @@ public class Customer implements Serializable {
         this.lastName = lastName;
         this.billingAddress = billingAddress;
         this.credit = credit;
-        this.isAdmin = isAdmin;
     }
 
     public Customer(String email, String password, String firstName, String lastName, String billingAddress) {
@@ -74,7 +70,6 @@ public class Customer implements Serializable {
         this.lastName = lastName;
         this.billingAddress = billingAddress;
         this.credit = 0.0f;
-        this.isAdmin = Boolean.FALSE;
     }
 
     public Integer getId() {
@@ -135,13 +130,5 @@ public class Customer implements Serializable {
     
     public void deductCredit(Float amount) {
         this.credit -= amount;
-    }
-
-    public Boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 }

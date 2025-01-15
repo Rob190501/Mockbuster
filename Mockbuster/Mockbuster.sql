@@ -11,10 +11,9 @@ CREATE TABLE user (
   last_name varchar(200) NOT NULL,
   billing_address varchar(200) NOT NULL,
   credit DECIMAL(10, 2) NOT NULL DEFAULT 0,
-  is_admin boolean NOT NULL DEFAULT FALSE,
   UNIQUE(email)
 ) AUTO_INCREMENT=1;
-select * from user;
+
 
 DROP TABLE IF EXISTS catalog_manager;
 CREATE TABLE catalog_manager (	
@@ -38,7 +37,7 @@ CREATE TABLE orders (
   order_date date NOT NULL DEFAULT (CURDATE()),
   total DECIMAL(10, 2) NOT NULL,
   user_id int NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (user_id) REFERENCES customer(id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS movie;
@@ -54,10 +53,6 @@ CREATE TABLE movie (
   is_visible boolean NOT NULL DEFAULT true,
   poster_path varchar(200) NOT NULL DEFAULT ''
 ) AUTO_INCREMENT=1;
-ALTER TABLE movie ADD COLUMN DTYPE VARCHAR(255) DEFAULT 'MOVIE';
-ALTER TABLE movie DROP COLUMN DTYPE;
-update movie set poster_path = '4ccb50b7-3eae-4425-aab1-6c3ab8dfc988.jpg' where id = 18;
-select * from movie;
 
 DROP TABLE IF EXISTS movie_rental_order;
 CREATE TABLE movie_rental_order (	
@@ -69,9 +64,6 @@ CREATE TABLE movie_rental_order (
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
-ALTER TABLE movie_rental_order ADD COLUMN DTYPE VARCHAR(255) DEFAULT 'RENTED';
-ALTER TABLE movie_rental_order DROP COLUMN DTYPE;
-select * from movie_rental_order;
 
 
 DROP TABLE IF EXISTS movie_purchase_order;
@@ -83,14 +75,12 @@ CREATE TABLE movie_purchase_order (
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
-ALTER TABLE movie_purchase_order ADD COLUMN DTYPE VARCHAR(255) DEFAULT 'PURCHASED';
-ALTER TABLE movie_purchase_order DROP COLUMN DTYPE;
 
 
 
-INSERT INTO user (email, password, first_name, last_name, billing_address, credit, is_admin) VALUES
-('carlo.neri@example.com', SHA2('pass4', 512), 'Carlo', 'Neri', 'Piazza San Marco 15 30100 Venezia', 100, TRUE),
-('paolo.rosa@example.com', SHA2('pass7', 512), 'Paolo', 'Rosa', 'Via Torino 9 10100 Torino', 250, TRUE);
+INSERT INTO user (email, password, first_name, last_name, billing_address, credit) VALUES
+('carlo.neri@example.com', SHA2('pass4', 512), 'Carlo', 'Neri', 'Piazza San Marco 15 30100 Venezia', 100),
+('paolo.rosa@example.com', SHA2('pass7', 512), 'Paolo', 'Rosa', 'Via Torino 9 10100 Torino', 250);
 INSERT INTO user (email, password, first_name, last_name, billing_address) VALUES
 ('mario.rossi@example.com', SHA2('pass1', 512), 'Mario', 'Rossi', 'Via Roma 1 00100 Roma'),
 ('luigi.bianchi@example.com', SHA2('pass2', 512), 'Luigi', 'Bianchi', 'Corso Italia 10 20100 Milano'),

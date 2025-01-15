@@ -73,8 +73,4 @@ public class UserDAO {
             throw new DAOException(e);
         }
     }
-
-    public void setAdmin(Integer id, Boolean isAdmin) throws DAOException {
-    }
-
 }
