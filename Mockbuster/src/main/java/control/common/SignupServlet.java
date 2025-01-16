@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import persistence.model.Cart;
 import persistence.model.Customer;
 import persistence.service.UserService;
+import security.UserRole.Role;
 
 
 
@@ -43,6 +44,7 @@ public class SignupServlet extends HttpServlet {
             userService.signup(user);
             
             request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("role", Role.CUSTOMER);
             request.getSession().setAttribute("cart", new Cart());
             response.sendRedirect(request.getContextPath() + "/common/index.jsp");
         } catch (NoSuchAlgorithmException | DAOException e) {

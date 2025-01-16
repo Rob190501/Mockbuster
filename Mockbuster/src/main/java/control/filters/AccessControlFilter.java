@@ -70,9 +70,11 @@ public class AccessControlFilter extends HttpFilter implements Filter {
             "/common/index.jsp",
             "/common/logoutservlet",
             "/browse/moviepageservlet",
+            "/browse/searchmovietitleservlet",
             "/admin/movieupdateservlet",
             "/admin/notvisiblepage.jsp",
-            "/admin/movieupload.jsp"
+            "/admin/movieupload.jsp",
+            "/admin/movieuploadservlet"
         ));
 
         // Pagine consentite per ORDER_MANAGER
