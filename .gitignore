@@ -285,3 +285,4 @@ Backup of *.doc*
 *.lock
 tmp/*
 /Mockbuster/target/
+/Mockbuster/nbproject/

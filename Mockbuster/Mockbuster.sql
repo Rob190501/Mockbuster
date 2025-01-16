@@ -54,6 +54,7 @@ CREATE TABLE movie (
   poster_path varchar(200) NOT NULL DEFAULT ''
 ) AUTO_INCREMENT=1;
 
+
 DROP TABLE IF EXISTS movie_rental_order;
 CREATE TABLE movie_rental_order (	
   order_id int NOT NULL,
