@@ -50,7 +50,7 @@ public class AccessControlFilter extends HttpFilter implements Filter {
             chain.doFilter(request, response);
             return;
         } else {
-            if(role == Role.CUSTOMER || role == Role.CATALOG_MANAGER) {
+            if(role == Role.CUSTOMER || role == Role.CATALOG_MANAGER || role == null) {
                 httpResponse.sendRedirect(indexPage);
                 return;
             }
