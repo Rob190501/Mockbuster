@@ -30,9 +30,9 @@ public class GetOrdersServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Role role = (Role) request.getSession().getAttribute("role");
-        Customer user = (Customer) request.getSession().getAttribute("user");
         
-        if(role != Role.ORDER_MANAGER) {
+        if(role == Role.CUSTOMER) {
+            Customer user = (Customer) request.getSession().getAttribute("user");
             if (request.getParameter("userid") == null || request.getParameter("orderid") == null) {
                 try {
                     Collection<Order> orders = orderService.retrieveByUser(user);
@@ -49,11 +49,24 @@ public class GetOrdersServlet extends HttpServlet {
         Integer orderID = Integer.parseInt(request.getParameter("orderid"));
 
         try {
-            Order orderDetails = orderService.retrieveOrderDetails(orderID);
+            Order orderDetails = null;
+                    
+            if(role == Role.CUSTOMER) {
+                Customer user = (Customer) request.getSession().getAttribute("user");
+                orderDetails = orderService.retrieveOrderDetails(orderID, user.getId());
+                
+                if(orderDetails == null || orderDetails.getUser().getId() != user.getId()) {
+                    response.sendRedirect(request.getContextPath() + "/browse/GetOrdersServlet");
+                    return;
+                }
+            }
             
-            if(orderDetails == null || orderDetails.getUser().getId() != user.getId()) {
-                response.sendRedirect(request.getContextPath() + "/browse/GetOrdersServlet");
-                return;
+            if(role == Role.ORDER_MANAGER) {
+                orderDetails = orderService.retrieveOrderDetails(orderID);
+                if(orderDetails == null) {
+                    response.sendRedirect(request.getContextPath() + "/admin/allOrdersPage.jsp");
+                    return;
+                }
             }
             
             request.setAttribute("order", orderDetails);

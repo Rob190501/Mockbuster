@@ -7,6 +7,7 @@ import control.exceptions.DAOException;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import java.util.ArrayList;
 import persistence.model.Order;
 
@@ -24,7 +25,7 @@ public class OrderDAO {
         }
     }
 
-    public Collection<Order> retrieveByUser(int userID) throws DAOException {
+    public Collection<Order> retrieveByUser(Integer userID) throws DAOException {
         try {
             return new ArrayList<Order>(em.createNamedQuery(Order.RETRIEVE_BY_USERID, Order.class)
                                         .setParameter("userID", userID)
@@ -34,6 +35,22 @@ public class OrderDAO {
         }
     }
 
+    public Order retrieveOrderDetails(Integer orderID, Integer userID) throws DAOException {
+        try {
+            Order out = em.createNamedQuery(Order.RETRIEVE_BY_ID_AND_USERID, Order.class)
+                          .setParameter("id", orderID)
+                          .setParameter("userID", userID)
+                          .getSingleResult();
+            out.getPurchasedMovies().size();
+            out.getRentedMovies().size();
+            return out;
+        } catch(NoResultException e) {
+            return null;
+        } catch(Exception e) {
+            throw new DAOException(e);
+        }
+    }
+    
     public Order retrieveOrderDetails(Integer orderID) throws DAOException {
         try {
             Order out = em.find(Order.class, orderID);

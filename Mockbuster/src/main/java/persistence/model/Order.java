@@ -60,10 +60,10 @@ public class Order implements Serializable {
     private Customer user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<RentedMovie> rentedMovies;
+    private Collection<RentedMovie> rentedMovies = new ArrayList<>();;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<PurchasedMovie> purchasedMovies;
+    private Collection<PurchasedMovie> purchasedMovies = new ArrayList<>();;
 
     public Order() {
     }
@@ -73,8 +73,6 @@ public class Order implements Serializable {
         this.date = LocalDate.now();
         this.total = 0.0f;
         this.user = user;
-        this.rentedMovies = new ArrayList<RentedMovie>();
-        this.purchasedMovies = new ArrayList<PurchasedMovie>();
     }
 
     public Order(Integer id, LocalDate date, Float total) {
@@ -82,8 +80,6 @@ public class Order implements Serializable {
         this.date = date;
         this.total = total;
         this.user = null;
-        this.rentedMovies = new ArrayList<RentedMovie>();
-        this.purchasedMovies = new ArrayList<PurchasedMovie>();
     }
 
     public Order(Integer id, LocalDate date, Float total, Customer user) {
@@ -91,8 +87,6 @@ public class Order implements Serializable {
         this.date = date;
         this.total = total;
         this.user = user;
-        this.rentedMovies = new ArrayList<RentedMovie>();
-        this.purchasedMovies = new ArrayList<PurchasedMovie>();
     }
     
     public Order(Customer user, Collection<RentedMovie> rentedMovies, Collection<PurchasedMovie> purchasedMovies, Float total) {

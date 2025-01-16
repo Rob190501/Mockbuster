@@ -34,12 +34,15 @@ public class OrderService {
         return orderDAO.retrieveByUser(user.getId());
     }
     
+    public Order retrieveOrderDetails(Integer orderID, Integer userID) throws DAOException {
+        return orderDAO.retrieveOrderDetails(orderID, userID);
+    }
+    
     public Order retrieveOrderDetails(Integer orderID) throws DAOException {
         return orderDAO.retrieveOrderDetails(orderID);
     }
     
     public Order placeOrder(Customer user, Cart cart) throws DAOException {
-        
         Order order = new Order(user, 
                                 cart.getRentedMovies(), 
                                 cart.getPurchasedMovies(), 
@@ -53,12 +56,13 @@ public class OrderService {
             rm.setOrder(order);
             movieService.rentMovie(rm);
         }
-        //user.addOrder(order);
         
         userService.deductCredit(user, order.getTotal());
         
         orderDAO.save(order);
+        
         cart.empty();
+        
         return order;
     }
     

@@ -1,5 +1,6 @@
 package persistence.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
@@ -8,7 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.annotations.CacheType;
 
@@ -55,6 +60,9 @@ public class Customer implements Serializable {
 
     @Column(name = "credit", nullable = false, precision = 10, scale = 2)
     private Float credit = 0.0f;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Order> orders = new ArrayList<>();
 
     public Customer() {
     }
@@ -137,5 +145,17 @@ public class Customer implements Serializable {
     
     public void deductCredit(Float amount) {
         this.credit -= amount;
+    }
+    
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
+    }
+    
+    public Collection<Order> getOrders() {
+        return orders;
+    }
+    
+    public void addOrder(Order order) {
+        this.orders.add(order);
     }
 }
