@@ -37,8 +37,10 @@ public class OrderDAO {
     public Order retrieveOrderDetails(Integer orderID) throws DAOException {
         try {
             Order out = em.find(Order.class, orderID);
-            out.getPurchasedMovies().size();
-            out.getRentedMovies().size();
+            if(out != null) {
+                out.getPurchasedMovies().size();
+                out.getRentedMovies().size();
+            }
             return out;
         } catch(Exception e) {
             throw new DAOException(e);

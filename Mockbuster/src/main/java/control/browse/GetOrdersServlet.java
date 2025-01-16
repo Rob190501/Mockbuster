@@ -30,10 +30,9 @@ public class GetOrdersServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Role role = (Role) request.getSession().getAttribute("role");
+        Customer user = (Customer) request.getSession().getAttribute("user");
         
         if(role != Role.ORDER_MANAGER) {
-            Customer user = (Customer) request.getSession().getAttribute("user");
-            
             if (request.getParameter("userid") == null || request.getParameter("orderid") == null) {
                 try {
                     Collection<Order> orders = orderService.retrieveByUser(user);
@@ -52,7 +51,7 @@ public class GetOrdersServlet extends HttpServlet {
         try {
             Order orderDetails = orderService.retrieveOrderDetails(orderID);
             
-            if(orderDetails == null) {
+            if(orderDetails == null || orderDetails.getUser().getId() != user.getId()) {
                 response.sendRedirect(request.getContextPath() + "/browse/GetOrdersServlet");
                 return;
             }
