@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import java.io.Serializable;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
 
 @Entity
 @Table(name = "user")
@@ -18,6 +20,11 @@ import java.io.Serializable;
     @NamedQuery(name = Customer.CHECK_EMAIL_AVAILABILITY, query = "SELECT COUNT(c) FROM Customer c WHERE c.email = :email"
     )
 })
+@Cache(
+    type = CacheType.SOFT, // Gli oggetti rimangono nella cache finché la memoria è sufficiente
+    size = 100,            // Numero massimo di oggetti nella cache
+    expiry = 3600000       // Tempo di scadenza in millisecondi (1 ora)
+)
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;

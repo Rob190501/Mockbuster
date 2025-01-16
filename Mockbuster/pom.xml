@@ -76,6 +76,14 @@
             <scope>test</scope>
         </dependency>
         
+        <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>5.0.0-B05</version>
+        </dependency>
+
+        
     </dependencies>
     
     <build>

@@ -17,6 +17,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
 
 @Entity
 @Table(name = "orders")
@@ -27,6 +29,11 @@ import java.util.Collection;
     @NamedQuery(name = Order.RETRIEVE_ALL_BETWEEN_DATES, query = "SELECT o FROM Order o WHERE o.date BETWEEN :from AND :to"),
     @NamedQuery(name = Order.RETRIEVE_ALL_BETWEEN_DATES_BY_USERID, query = "SELECT o FROM Order o WHERE o.date BETWEEN :from AND :to AND o.user.id = :userID")
 })
+@Cache(
+    type = CacheType.SOFT, // Gli oggetti rimangono nella cache finché la memoria è sufficiente
+    size = 100,            // Numero massimo di oggetti nella cache
+    expiry = 3600000       // Tempo di scadenza in millisecondi (1 ora)
+)
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;

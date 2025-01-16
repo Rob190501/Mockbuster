@@ -10,9 +10,16 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
 
 @Entity
 @Table(name = "movie_rental_order")
+@Cache(
+    type = CacheType.SOFT, // Gli oggetti rimangono nella cache finché la memoria è sufficiente
+    size = 100,            // Numero massimo di oggetti nella cache
+    expiry = 3600000       // Tempo di scadenza in millisecondi (1 ora)
+)
 public class RentedMovie implements Serializable {
 
     private static final long serialVersionUID = 1L;

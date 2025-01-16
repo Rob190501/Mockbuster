@@ -13,6 +13,8 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
 
 /**
  *
@@ -23,6 +25,11 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name = OrderManager.RETRIEVE_BY_EMAIL_AND_PSW, query = "SELECT om FROM OrderManager om WHERE om.email = :email AND om.password = :password")
 })
+@Cache(
+    type = CacheType.SOFT, // Gli oggetti rimangono nella cache finché la memoria è sufficiente
+    size = 100,            // Numero massimo di oggetti nella cache
+    expiry = 3600000       // Tempo di scadenza in millisecondi (1 ora)
+)
 public class OrderManager implements Serializable {
 
     private static final long serialVersionUID = 1L;

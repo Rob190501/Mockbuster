@@ -9,6 +9,8 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
 
 @Entity
 @Table(name = "movie")
@@ -16,6 +18,11 @@ import java.io.Serializable;
     @NamedQuery(name = Movie.RETRIEVE_ALL, query = "SELECT m FROM Movie m"),
     @NamedQuery(name = Movie.RETRIEVE_BY_TITLE, query = "SELECT m FROM Movie m WHERE m.title LIKE :title")
 })
+@Cache(
+    type = CacheType.SOFT, // Gli oggetti rimangono nella cache finché la memoria è sufficiente
+    size = 100,            // Numero massimo di oggetti nella cache
+    expiry = 3600000       // Tempo di scadenza in millisecondi (1 ora)
+)
 public class Movie implements Serializable {
 	
     private static final long serialVersionUID = 1L;
